@@ -3,6 +3,7 @@ import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
+import { PatientRecords } from "./PatientRecords";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -48,6 +49,8 @@ function App() {
           <div className="font-bold text-3xl tracking-tight">
             Patient Records
           </div>
+          <PatientRecords/>
+          
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
