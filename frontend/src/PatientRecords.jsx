@@ -27,81 +27,68 @@ const columns = [
     header: "Name",
   },
   {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "age",
-    header: "Age",
-  },
-  {
     accessorKey: "condition",
     header: "Condition",
+  },
+  {
+    accessorKey: "visitedDate",
+    header: "Visited Date",
   },
 ];
 
 const patientsData = [
   {
     name: "Jane Doe",
-    email: "jane@example.com",
-    age: 35,
     condition: "Diabetes",
+    visitedDate: "2023-01-01", // Replace with the actual visited date
   },
   {
     name: "Bob Johnson",
-    email: "bob@example.com",
-    age: 42,
     condition: "Arthritis",
+    visitedDate: "2023-02-15", // Replace with the actual visited date
   },
   {
     name: "Alice Smith",
-    email: "alice@example.com",
-    age: 28,
     condition: "Hypertension",
+    visitedDate: "2023-03-10", // Replace with the actual visited date
   },
   {
     name: "John Doe",
-    email: "john@example.com",
-    age: 50,
     condition: "Asthma",
+    visitedDate: "2023-04-20", // Replace with the actual visited date
   },
   {
     name: "Eva Brown",
-    email: "eva@example.com",
-    age: 56,
     condition: "Migraine",
+    visitedDate: "2023-05-05", // Replace with the actual visited date
   },
   {
     name: "Bob Johnson",
-    email: "bob@example.com",
-    age: 32,
     condition: "Diabetes",
+    visitedDate: "2023-06-12", // Replace with the actual visited date
   },
   {
     name: "Alice Smith",
-    email: "alice@example.com",
-    age: 45,
     condition: "Arthritis",
+    visitedDate: "2023-07-18", // Replace with the actual visited date
   },
   {
     name: "John Doe",
-    email: "john@example.com",
-    age: 60,
     condition: "Hypertension",
+    visitedDate: "2023-08-22", // Replace with the actual visited date
   },
   {
     name: "Eva Brown",
-    email: "eva@example.com",
-    age: 38,
     condition: "Asthma",
+    visitedDate: "2023-09-30", // Replace with the actual visited date
   },
   {
     name: "Jane Doe",
-    email: "jane@example.com",
-    age: 25,
     condition: "Migraine",
+    visitedDate: "2023-10-15", // Replace with the actual visited date
   },
 ];
+
 
 export function PatientRecords() {
   return (
