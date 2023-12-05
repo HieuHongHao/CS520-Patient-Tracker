@@ -3,7 +3,7 @@ import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
-import { DoctorRecords } from "./DoctorRecords";
+import { PatientRecords } from "./PatientRecords";
 import {Button} from "./components/button";
 
 
@@ -39,7 +39,7 @@ export default function PatientPage() {
       <Tab.Panels as="div" className=" min-h-full w-5/6">
         <div className="flex flex-row border-b border-slate-200 mt-5 pb-3 ">
           <div className="text-sm font-semibold ml-auto mr-5 mt-2">
-            patient@gmail.com
+            doctor@gmail.com
           </div>
           <img
             src={doctorURL}
@@ -52,9 +52,9 @@ export default function PatientPage() {
         </div>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">
-            Available Doctors
+          Available Doctors
           </div>
-          <DoctorRecords />
+          <PatientRecords />
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
