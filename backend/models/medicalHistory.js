@@ -8,16 +8,24 @@ const medicalHistorySchema = new Schema({
     required: true, 
     ref: 'Patient'
   },
-  name: { 
+  doctorId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Doctor'
+  },
+  title: { 
     type: String, 
     required: true, 
     maxlength: 50 
   },
-  type: { 
+  description: { 
     type: String, 
-    required: true, 
-    enum: ['Illness', 'Allergy'], 
+    required: true,
     maxlength: 50 
+  },
+  date: {
+    type: Date,
+    required: true,
   },
   medicationUsed: [
     { type: String, maxlength: 50 }
