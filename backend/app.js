@@ -2,14 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-
+import cors from 'cors';
 import ApiRoutes from './routes/index.js';
 
 const app = express();
 
 dotenv.config();
 
-const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/patient-tracker';
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/patient-tracker-db';
 const PORT = process.env.PORT || 5001;
 
 mongoose.connect(dbUrl);
@@ -23,6 +23,7 @@ app.use('/', express.static('client'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 app.use('/api', ApiRoutes);
 
