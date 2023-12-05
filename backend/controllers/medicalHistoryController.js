@@ -2,10 +2,10 @@ import MedicalHistory from '../models/medicalHistory.js';
 
 // Add a new medical history record
 export const addOne = async (req, res) => {
-  // userId is patient id
-  const { userId, name, type, medicationUsed } = req.body;
+  // patientId is patient id
+  const { patientId, name, type, medicationUsed } = req.body;
   const newMedicalHistory = new MedicalHistory({
-    userId, name, type, medicationUsed
+    patientId, name, type, medicationUsed
   });
 
   try {
@@ -45,7 +45,7 @@ export const getOne = async (req, res) => {
 
 // Update a medical history record
 export const updateOne = async (req, res) => {
-  const { userId, name, type, medicationUsed } = req.body;
+  const { patientId, name, type, medicationUsed } = req.body;
   const { id } = req.params;
   try {
     const medicalHistory = await MedicalHistory.findById(id);
@@ -53,7 +53,7 @@ export const updateOne = async (req, res) => {
       return res.status(404).send({ message: 'Medical history not found' });
     }
 
-    medicalHistory.userId = userId;
+    medicalHistory.patientId = patientId;
     medicalHistory.name = name;
     medicalHistory.type = type;
     medicalHistory.medicationUsed = medicationUsed;
@@ -92,11 +92,11 @@ export const deleteOne = async (req, res) => {
   }
 };
 
-// Get list of medical histories based on patientId/userId
-export const getMedicalHistoriesByUserId = async (req, res) => {
-  const { userId } = req.params;
+// Get list of medical histories based on patientId/patientId
+export const getMedicalHistoriesByPatientId = async (req, res) => {
+  const { patientId } = req.params;
   try {
-    const medicalHistories = await MedicalHistory.find({ userId: userId });
+    const medicalHistories = await MedicalHistory.find({ patientId: patientId });
     res.send({
       message: 'Medical histories retrieved successfully',
       data: medicalHistories,

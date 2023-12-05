@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 
 const medicalHistorySchema = new Schema({
-  userId: {
+  patiendId: {
     type: Schema.Types.ObjectId, 
     required: true, 
     ref: 'Patient'
@@ -13,7 +13,7 @@ const medicalHistorySchema = new Schema({
     required: true,
     ref: 'Doctor'
   },
-  title: { 
+  condition: { 
     type: String, 
     required: true, 
     maxlength: 50 
@@ -21,9 +21,9 @@ const medicalHistorySchema = new Schema({
   description: { 
     type: String, 
     required: true,
-    maxlength: 50 
+    maxlength: 1000
   },
-  date: {
+  visitedDate: {
     type: Date,
     required: true,
   },
