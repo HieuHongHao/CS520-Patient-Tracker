@@ -15,6 +15,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./components/Diaglog";
+import {Input} from "./components/Input"
+import {Textarea} from "./components/Textarea"
+import {DatePicker} from "./components/DatePicker"
 
 
 
@@ -105,10 +108,18 @@ export function PatientRecords() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>New Patient Record Form</DialogTitle>
+              <DialogTitle className="text-xl">Medical Record</DialogTitle>
               <DialogDescription>
                 <div className="flex flex-col">
-
+                  <div className="text-[0.8125rem] text-foreground mt-3 font-semibold">Patient Id</div>
+                  <Input placeholder="Enter the patient id" className="mt-2"/>
+                  <div className="text-[0.8125rem] text-foreground mt-3 font-semibold">Condition</div>
+                  <Input placeholder="Summary of patient condition" className="mt-2"/>
+                  <div className="text-[0.8125rem] text-foreground mt-3 font-semibold">Description</div>
+                  <Textarea placeholder="Type checkup decription in detail here" className="mt-2 h-52"/>
+                  <div className="text-[0.8125rem] text-foreground mt-3 font-semibold mb-2">Visited Date</div>
+                  <DatePicker/>
+                  <Button size={"lg"} className="mt-5 w-max ml-auto mr-auto">Submit</Button>
                 </div>
               </DialogDescription>
             </DialogHeader>
