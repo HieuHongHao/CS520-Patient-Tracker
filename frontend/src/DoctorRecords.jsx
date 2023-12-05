@@ -118,10 +118,10 @@ import {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>New Patient Record Form</DialogTitle>
+                <DialogTitle>Book appointment</DialogTitle>
                 <DialogDescription>
                   <div className="flex flex-col">
-  
+                    
                   </div>
                 </DialogDescription>
               </DialogHeader>
