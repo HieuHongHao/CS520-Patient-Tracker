@@ -4,6 +4,7 @@ import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
 import { PatientRecords } from "./PatientRecords";
+import { DoctorRecords } from "./DoctorRecords";
 import {Button} from "./components/button";
 
 
@@ -54,7 +55,7 @@ export default function PatientPage() {
           <div className="font-bold text-3xl tracking-tight">
           Available Doctors
           </div>
-          <PatientRecords />
+          <DoctorRecords />
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
