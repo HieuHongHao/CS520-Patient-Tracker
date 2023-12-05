@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import {dbUrl, PORT} from  './config.js';
 
+import cors from 'cors';
 import ApiRoutes from './routes/index.js';
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/', express.static('client'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 app.use('/api', ApiRoutes);
 
