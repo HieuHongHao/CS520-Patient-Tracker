@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 
-import {dbUrl, PORT} from  './config';
+import {dbUrl, PORT} from  './config.js';
 
 import ApiRoutes from './routes/index.js';
 

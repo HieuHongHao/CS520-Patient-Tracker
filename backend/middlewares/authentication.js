@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import {jwtSecret} from '../config';
+import { jwtSecret } from '../config.js';
 
 // use this middleware for API that requires user exists.
 export const authenticate = (req, res, next) => {
@@ -10,7 +10,7 @@ export const authenticate = (req, res, next) => {
   if (token) {
     try {
       // Verify and decode the JWT
-      const decoded = jwt.verify(token, jwtSecret); 
+      const decoded = jwt.verify(token, jwtSecret);
 
       // Check if the token has expired
       const currentTimestamp = Math.floor(Date.now() / 1000);
