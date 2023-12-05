@@ -7,10 +7,8 @@ import { PatientRecords } from "./PatientRecords";
 import {Button} from "./components/button";
 
 
-function DoctorPage() {
+export default function DoctorPage() {
   const [count, setCount] = useState(0);
-
-  
 
   return (
     <Tab.Group as={"div"} className="flex flex-row h-screen">
@@ -68,5 +66,3 @@ function DoctorPage() {
     </Tab.Group>
   );
 }
-
-export default DoctorPage;

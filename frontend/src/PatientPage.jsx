@@ -7,7 +7,7 @@ import { DoctorRecords } from "./DoctorRecords";
 import {Button} from "./components/button";
 
 
-function PatientPage() {
+export default function PatientPage() {
   const [count, setCount] = useState(0);
 
   return (
@@ -66,5 +66,3 @@ function PatientPage() {
     </Tab.Group>
   );
 }
-
-export default PatientPage;
