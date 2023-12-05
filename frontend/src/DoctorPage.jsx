@@ -3,12 +3,14 @@ import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
-import { DoctorRecords } from "./DoctorRecords";
+import { PatientRecords } from "./PatientRecords";
 import {Button} from "./components/button";
 
 
-function PatientPage() {
+function DoctorPage() {
   const [count, setCount] = useState(0);
+
+  
 
   return (
     <Tab.Group as={"div"} className="flex flex-row h-screen">
@@ -22,7 +24,7 @@ function PatientPage() {
         <Tab className="flex flex-row mt-10 space-x-3 ml-2 group hover:bg-gray-50 hover:text-indigo-600 hover:font-semibold rounded-md focus:bg-gray-50 focus:text-indigo-600 focus:font-semibold mr-3 py-2 outline-none pl-3">
           <HeartPulse className="w-8 h-8 object-cover px-1 text-slate-600 group-hover:text-indigo-600 group-focus:text-indigo-600" />
           <div className="font-medium mt-1 leading-6 ">
-            Available Doctors
+            Patient Records
           </div>
         </Tab>
         <Tab className="flex flex-row mt-4 space-x-3 ml-2 group hover:bg-gray-50 hover:text-indigo-600 hover:font-semibold rounded-md focus:bg-gray-50 focus:text-indigo-600 focus:font-semibold mr-3 py-2 outline-none pl-3">
@@ -39,7 +41,7 @@ function PatientPage() {
       <Tab.Panels as="div" className=" min-h-full w-5/6">
         <div className="flex flex-row border-b border-slate-200 mt-5 pb-3 ">
           <div className="text-sm font-semibold ml-auto mr-5 mt-2">
-            patient@gmail.com
+            doctor@gmail.com
           </div>
           <img
             src={doctorURL}
@@ -52,9 +54,9 @@ function PatientPage() {
         </div>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">
-            Available Doctors
+            Patient Records
           </div>
-          <DoctorRecords />
+          <PatientRecords />
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
@@ -67,4 +69,4 @@ function PatientPage() {
   );
 }
 
-export default PatientPage;
+export default DoctorPage;
