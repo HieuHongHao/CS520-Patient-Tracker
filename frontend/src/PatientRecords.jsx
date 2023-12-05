@@ -104,7 +104,7 @@ export function PatientRecords() {
       />
         <Dialog>
           <DialogTrigger className="ml-5 mb-3">
-            <Button size={"sm"}>Add Record</Button>
+            <Button size={"sm"}>Add medical record</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
