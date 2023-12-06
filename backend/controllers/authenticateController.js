@@ -1,11 +1,22 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { User } from '../models/user.js';
+import { User, Doctor, Patient } from '../models/user.js';
 import { jwtSecret } from '../config.js';
+import mongoose from 'mongoose';
 
-export const register =  async (req, res) => {
-  const { email, encodedPassword } = req.body;
+export const register = async (req, res) => {
+  const { email, password, lastName, firstName, phone, role } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ errorL: 'Invalid email or password ' });
+  }
+  if (!(["Doctor", "Patient"].includes(role))) {
+    return res.status(400).json({ errorL: 'Invalid role' });
+  }
+
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
   try {
     // Check if the email already exists
@@ -17,11 +28,18 @@ export const register =  async (req, res) => {
     // Hash the password
     // Salt used in hashing. Unlikely used elsewhere, so define it here.
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(encodedPassword, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Save user to the database
-    const newUser = new User({ email, password: hashedPassword });
-    await newUser.save();
+    const newUser = await User.create({ email, password: hashedPassword, firstName, lastName, phone, role });
+
+    // TODO: register flow for Doctor/Patient requires respective fields. Mark fields
+    // non-required for now.
+    if (role === 'Doctor') {
+      await Doctor.create({ userId: newUser._id });
+    } else {
+      await Patient.create({ userId: newUser._id });
+    }
 
     // Create and send JWT token
     const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1d' });
@@ -35,7 +53,9 @@ export const register =  async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, encodedPassword } = req.body;
+  const { email, password } = req.body;
+
+  console.log("qwe", req.cookies);
 
   try {
     // Find the user by email
@@ -45,13 +65,13 @@ export const login = async (req, res) => {
     }
 
     // Compare the hashed password
-    const passwordMatch = await bcrypt.compare(encodedPassword, user.password);
+    const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Create and send JWT token
-    const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1d' });
+    const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1d' });
 
     res.cookie('token', token, { httpOnly: true });
     res.status(200).json({ message: 'Login successful' });
