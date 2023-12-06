@@ -13,9 +13,9 @@ const appointmentSchema = new Schema({
     required: true, 
     ref: 'Doctor' 
   },
-  time: { 
-    type: Date, 
-    required: true 
+  dateAndTime: {
+    type: Date,
+    required: true,
   },
   reason: { 
     type: String, 
