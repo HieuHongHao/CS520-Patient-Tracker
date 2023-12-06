@@ -7,12 +7,11 @@ const userSchema = new Schema({
   email: { 
     type: String, 
     required: true, 
-    maxlength: 50 
+    maxlength: 50,
   },
   password: { 
     type: String, 
     required: true, 
-    maxlength: 50 
   },
   role: { 
     type: String, 
@@ -43,7 +42,7 @@ const patientSchema = new Schema({
     required: true, 
     ref: 'User' 
   },
-  dob: { type: Date, required: true },
+  dob: { type: Date, required: false },
   medical_history: { type: String }
 });
 
@@ -56,7 +55,7 @@ const doctorSchema = new Schema({
   },
   specialization: { 
     type: String, 
-    required: true, 
+    required: false, 
     maxlength: 50 
   }
 });

@@ -2,15 +2,15 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+
+import {dbUrl, PORT} from  './config.js';
+
 import cors from 'cors';
 import ApiRoutes from './routes/index.js';
 
 const app = express();
 
 dotenv.config();
-
-const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/patient-tracker-db';
-const PORT = process.env.PORT || 5001;
 
 mongoose.connect(dbUrl);
 const db = mongoose.connection;
