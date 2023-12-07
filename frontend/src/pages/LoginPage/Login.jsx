@@ -26,6 +26,7 @@ export default function LoginPage() {
     } catch (err) {
       // TODO: add snackbar for error msg.
       console.log("Error", err.data);
+
     }
   }
 

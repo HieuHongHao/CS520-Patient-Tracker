@@ -8,7 +8,7 @@ import doctorURL from "/Doctor.jpeg";
 import { PatientRecords } from "../PatientPage/PatientRecords";
 import { Button } from "../../components/button";
 import DoctorProfile from "./DoctorProfile";
-import Appointment from "../BookPage/Appointment";
+import Appointment from "./Appointment";
 import { useAuth } from '../../context/AuthContext';
 
 
