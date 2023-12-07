@@ -4,13 +4,13 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
-import { dbUrl, PORT } from './config.js';
+import { dbUrl, PORT, FRONTEND_URL } from './config.js';
 
 import ApiRoutes from './routes/index.js';
 
-const app = express();
-
 dotenv.config();
+
+const app = express();
 
 mongoose.connect(dbUrl);
 const db = mongoose.connection;
@@ -20,11 +20,12 @@ db.once('open', () => {
 });
 
 app.use('/', express.static('client'));
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  // remove trailing slash '/'
+  origin: FRONTEND_URL.replace(/\/$/, ''),
   credentials: true,
 }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
