@@ -108,7 +108,7 @@ export const checkAvailability = async (req, res) => {
 
 export const getPatientAppointments = async (req, res) => {
   try {
-    const { patientId } = req.body;
+    const { patientId } = req.params;
     const appointments = await Appointment.find({
       patient: patientId,
     });

@@ -1,4 +1,5 @@
 import { Doctor, User } from '../models/user.js';
+import Appointment from "../models/appointment.js";
 import mongoose from 'mongoose';
 
 export const getAll = async (req, res) => {
@@ -41,6 +42,25 @@ export const getOne = async (req, res) => {
     res.status(500).json({
       message: 'An error occurred while retrieving the doctor',
       error: err.message,
+    });
+  }
+};
+
+export const getDoctorAppointments = async (req, res) => {
+  try {
+    const { id: doctorId } = req.params;
+    const appointments = await Appointment.find({
+      doctor: doctorId,
+    });
+    res.status(200).send({
+      message: "Fetch doctor's appointments successfully",
+      data: appointments,
+    });
+  } catch (err) {
+    // console.log(err);
+    res.status(500).send({
+      message: "Error in doctor appointments",
+      error: err.message()
     });
   }
 };
