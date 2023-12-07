@@ -6,10 +6,13 @@ import { Tab } from "@headlessui/react";
 import { PatientRecords } from "./PatientRecords";
 import { DoctorRecords } from "./DoctorRecords";
 import {Button} from "./components/button";
+import DoctorProfile from "./DoctorProfile";
 
 
 export default function PatientPage() {
   const [count, setCount] = useState(0);
+  
+  
 
   return (
     <Tab.Group as={"div"} className="flex flex-row h-screen">
