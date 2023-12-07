@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import { BACKEND_URL } from "../../config";
+
 export default function BookPage() {
   const [doctor, setDoctor] = useState({});
   const [date, setDate] = useState("");
@@ -14,7 +16,7 @@ export default function BookPage() {
   const checkAvailability = async () => {
     try {
       const { status, data } = await axios.post(
-        `http://localhost:3000/api/patient/${params.doctorId}/check-availability`,
+        `${BACKEND_URL}/api/patient/${params.doctorId}/check-availability`,
         { date, time }
       );
       if (status == 200) {
@@ -31,7 +33,7 @@ export default function BookPage() {
   const bookAppointment = async () => {
     try {
       const { status, data } = await axios.post(
-        `http://localhost:3000/api/patient/${params.doctorId}/book-appointment`,
+        `${BACKEND_URL}/api/patient/${params.doctorId}/book-appointment`,
         { date, time, reason }
       );
       if (status == 200) {
@@ -48,7 +50,7 @@ export default function BookPage() {
   const getDoctor = async () => {
     try {
       const { status, data } = await axios.get(
-        `http://localhost:3000/api/doctor/${params.doctorId}`
+        `${BACKEND_URL}/api/doctor/${params.doctorId}`
       );
       if (status == 200) {
         setDoctor(data.data);
