@@ -13,10 +13,12 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/doctor" element={<DoctorPage />}>
-            <Route path="book-appointment/:doctorId" element={<BookPage />} />
-          </Route>
+
+          <Route path="/doctor" element={<DoctorPage />} />
+          <Route path="/doctor/book-appointment/:doctorId" element={<BookPage />} />
+          
           <Route path="/patient" element={<PatientPage />} />
         </Routes>
       </AuthProvider>
