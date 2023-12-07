@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -18,14 +19,13 @@ export default function LoginPage() {
       const data = await loginUser(credentialInfo);
       // fill logged in user data to AuthContext, to be used by other pages
       // e.g. check if logged in, display name, etc.
-      login(data.user);
+      login(data);
 
       // Goes to landing page.
       navigate('/');
 
     } catch (err) {
-      // TODO: add snackbar for error msg.
-      console.log("Error", err.data);
+      message.error(err.data.message);
 
     }
   }
@@ -83,7 +83,7 @@ export default function LoginPage() {
         </div>
         <button
           className="self-center w-1/4 h-max py-2 px-4 font-semibold rounded-md mt-5 hover:bg-slate-100 text-sm ring-1 ring-slate-700/25"
-          onClick={()=>navigate('/register')}
+          onClick={() => navigate('/register')}
         >
           Create new account
         </button>
