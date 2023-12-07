@@ -44,37 +44,43 @@ export const register = async (req, res) => {
     // Create and send JWT token
     const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1d' });
 
-    res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ message: 'Registration successful' });
+    // res.cookie('token', token, { httpOnly: true });
+    res.status(200).json({ token, user: filterUserFields(user) });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
+const filterUserFields = (user) => {
+  // add _id if needed. Also change _id to id if needed.
+  const allowedFields = ['email', 'firstName', 'lastName', 'role', 'phone'];
+  const filteredUser = {};
+  allowedFields.forEach(field => filteredUser[field] = user[field]);
+  return filteredUser;
+}
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
-  console.log("qwe", req.cookies);
 
   try {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).send("Invalid email or password");
     }
 
     // Compare the hashed password
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).send("Invalid email or password");
     }
 
     // Create and send JWT token
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1d' });
 
-    res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ message: 'Login successful' });
+    // res.cookie('token', token, { httpOnly: true });
+    res.status(200).json({ token, user: filterUserFields(user) });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
