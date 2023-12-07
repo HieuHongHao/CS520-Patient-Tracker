@@ -36,7 +36,7 @@ function SpecializationSelector() {
   return (
     <Select>
       <SelectTrigger className="w-[180px] mt-2">
-        <SelectValue placeholder="Theme" />
+        <SelectValue placeholder="Role" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="top">Top</SelectItem>
