@@ -1,10 +1,12 @@
 import express from 'express';
 import { getMedicalHistoriesByPatientId } from '../controllers/medicalHistoryController.js';
-import { bookAppointment, checkAvailability } from '../controllers/userController.js';
+import { bookAppointment, checkAvailability, getPatientAppointments } from '../controllers/patientController.js';
 
 const router = express.Router();
 
-router.get('/:id/medicalHistories', getMedicalHistoriesByPatientId);
-router.post('/:id/book-appointment', bookAppointment);
-router.post('/:id/check-availability', checkAvailability);
+router.get('/:patientId/medicalHistories', getMedicalHistoriesByPatientId);
+router.get('/:patientId/appointments', getPatientAppointments);
+router.post('/:doctorId/book-appointment', bookAppointment);
+router.post('/:doctorId/check-availability', checkAvailability);
+
 export default router;

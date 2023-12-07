@@ -24,7 +24,7 @@ const checkAvailabilityHelper = async (date, time, doctorId) => {
 }
 //BOOK APPOINTMENT
 export const bookAppointment = async (req, res) => {
-  const { id: doctorId } = req.params;
+  const { doctorId } = req.params;
   // PatientId should be get FROM THE TOKEN!!
   const { date, time, reason } = req.body;
   const patientId = "6152f43d72d4cfe6fc37e675";
@@ -35,7 +35,7 @@ export const bookAppointment = async (req, res) => {
       message: "Appointments not available",
     });
   }
-  // try {
+  try {
     // const dateTime = new Date(`${date}T${time}`);
     const [year, month, day] = date.split('-');
     const [hours, minutes] = time.split(':');
@@ -46,7 +46,6 @@ export const bookAppointment = async (req, res) => {
       doctor: doctorId,
       dateAndTime: appointmentTime,
       reason: reason,
-      // prescription: prescriptionId ? mongoose.Types.ObjectId(prescriptionId) : null
     });
 
     // Save the appointment
@@ -57,20 +56,19 @@ export const bookAppointment = async (req, res) => {
       message: 'Appointment booked successfully',
       data: newAppointment
     });
-
-  // } catch (error) {
-  //   res.status(500).json({
-  //     success: false,
-  //     message: 'An error occurred while booking the appointment',
-  //     error: error.message
-  //   });
-  // }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while booking the appointment',
+      error: error.message
+    });
+  }
 };
 
 // check doctor availabilibty
 export const checkAvailability = async (req, res) => {
   try {
-    const { id: doctorId } = req.params;
+    const { doctorId } = req.params;
     const { date, time } = req.body; // Expecting date format: "YYYY-MM-DD", time format: "HH:mm"
 
     // const [year, month, day] = date.split('-');
@@ -100,7 +98,7 @@ export const checkAvailability = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).send({
       message: "Error in checking availability",
       error: err.message,
@@ -108,18 +106,18 @@ export const checkAvailability = async (req, res) => {
   }
 };
 
-export const userAppointmentsController = async (req, res) => {
+export const getPatientAppointments = async (req, res) => {
   try {
     const { patientId } = req.body;
     const appointments = await Appointment.find({
       patient: patientId,
     });
     res.status(200).send({
-      message: "Users Appointments Fetch SUccessfully",
+      message: "Fetch patient's appointments successfully",
       data: appointments,
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).send({
       message: "Error In User Appointments",
       error: err.message()
