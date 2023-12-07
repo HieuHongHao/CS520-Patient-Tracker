@@ -6,15 +6,16 @@ import { jwtSecret } from '../config.js';
 import mongoose from 'mongoose';
 
 const filterUserFields = (user) => {
-  // add _id if needed. Also change _id to id if needed.
-  const allowedFields = ['email', 'firstName', 'lastName', 'role', 'phone'];
+  const allowedFields = ['email', 'firstName', 'lastName', 'role',
+    'phone', 'specialization', 'dob', '_id'];
   const filteredUser = {};
   allowedFields.forEach(field => filteredUser[field] = user[field]);
   return filteredUser;
 }
 
 export const register = async (req, res) => {
-  const { email, password, lastName, firstName, phone, role } = req.body;
+  const { email, password, lastName, firstName,
+    phone, role, dob, specialization } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ errorL: 'Invalid email or password ' });
@@ -98,5 +99,5 @@ export const login = async (req, res) => {
 // through this controller.
 export const logout = async (req, res) => {
   res.cookie('token', '', { expires: new Date(0), httpOnly: true });
-  res.status(200).json({message: "Logout success!"});
+  res.status(200).json({ message: "Logout success!" });
 };
