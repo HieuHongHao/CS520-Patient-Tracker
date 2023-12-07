@@ -1,6 +1,5 @@
 import express from 'express';
-import { getMedicalHistoriesByPatientId } from '../controllers/medicalHistoryController.js';
-import { bookAppointment, checkAvailability, getPatientAppointments } from '../controllers/patientController.js';
+import { bookAppointment, checkAvailability, getPatientAppointments, getMedicalHistoriesByPatientId } from '../controllers/patientController.js';
 
 const router = express.Router();
 

@@ -35,6 +35,7 @@ export default function BookPage() {
         { date, time, reason }
       );
       if (status == 200) {
+        setIsAvailable(false);
         message.success(data.message);
       }
     } catch (err) {

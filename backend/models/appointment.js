@@ -3,12 +3,12 @@ const { Schema, model } = mongoose;
 
 // Appointment Schema
 const appointmentSchema = new Schema({
-  patient: { 
+  patientId: { 
     type: Schema.Types.ObjectId, 
     required: true, 
     ref: 'Patient' 
   },
-  doctor: { 
+  doctorId: { 
     type: Schema.Types.ObjectId, 
     required: true, 
     ref: 'Doctor' 

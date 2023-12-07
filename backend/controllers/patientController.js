@@ -1,4 +1,5 @@
 import Appointment from "../models/appointment.js";
+import MedicalHistory from "../models/medicalHistory.js";
 import mongoose from "mongoose";
 
 const checkAvailabilityHelper = async (date, time, doctorId) => {
@@ -13,7 +14,7 @@ const checkAvailabilityHelper = async (date, time, doctorId) => {
   console.log(timeStart.getUTCHours(), timeStart.getMinutes(), timeStart.getSeconds());
   console.log(timeEnd.getUTCHours(), timeEnd.getMinutes(), timeEnd.getSeconds());
   const appointments = await Appointment.find({
-    doctor: doctorId,
+    doctorId,
     dateAndTime: {
       $gte: timeStart,
       $lte: timeEnd,
@@ -42,8 +43,8 @@ export const bookAppointment = async (req, res) => {
     const appointmentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
 
     const newAppointment = new Appointment({
-      patient: patientId,
-      doctor: doctorId,
+      patientId,
+      doctorId,
       dateAndTime: appointmentTime,
       reason: reason,
     });
@@ -110,7 +111,7 @@ export const getPatientAppointments = async (req, res) => {
   try {
     const { patientId } = req.params;
     const appointments = await Appointment.find({
-      patient: patientId,
+      patientId,
     });
     res.status(200).send({
       message: "Fetch patient's appointments successfully",
@@ -121,6 +122,23 @@ export const getPatientAppointments = async (req, res) => {
     res.status(500).send({
       message: "Error In User Appointments",
       error: err.message()
+    });
+  }
+};
+
+// Get list of medical histories based on patientId/patientId - Patient view
+export const getMedicalHistoriesByPatientId = async (req, res) => {
+  const { patientId } = req.params;
+  try {
+    const medicalHistories = await MedicalHistory.find({ patientId: patientId });
+    res.send({
+      message: 'Medical histories retrieved successfully',
+      data: medicalHistories,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: 'An error occurred while retrieving medical histories',
+      error: err.message,
     });
   }
 };
