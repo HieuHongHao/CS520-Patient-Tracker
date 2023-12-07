@@ -44,51 +44,61 @@ const patientsData = [
     name: "Jane Doe",
     condition: "Diabetes",
     visitedDate: "2023-01-01", // Replace with the actual visited date
+    ID: "1"
   },
   {
     name: "Bob Johnson",
     condition: "Arthritis",
-    visitedDate: "2023-02-15", // Replace with the actual visited date
+    visitedDate: "2023-02-15", // Replace with the actual visited date,
+    ID: "2"
   },
   {
     name: "Alice Smith",
     condition: "Hypertension",
-    visitedDate: "2023-03-10", // Replace with the actual visited date
+    visitedDate: "2023-03-10", // Replace with the actual visited date,
+    ID: "3"
   },
   {
     name: "John Doe",
     condition: "Asthma",
     visitedDate: "2023-04-20", // Replace with the actual visited date
+    ID: "4"
   },
   {
     name: "Eva Brown",
     condition: "Migraine",
     visitedDate: "2023-05-05", // Replace with the actual visited date
+    ID: "5"
   },
   {
     name: "Bob Johnson",
     condition: "Diabetes",
     visitedDate: "2023-06-12", // Replace with the actual visited date
+    ID: "6"
   },
   {
     name: "Alice Smith",
     condition: "Arthritis",
     visitedDate: "2023-07-18", // Replace with the actual visited date
+    ID: "7"
   },
   {
     name: "John Doe",
     condition: "Hypertension",
     visitedDate: "2023-08-22", // Replace with the actual visited date
+    ID: "8"
   },
   {
     name: "Eva Brown",
     condition: "Asthma",
     visitedDate: "2023-09-30", // Replace with the actual visited date
+    ID: 9
   },
   {
     name: "Jane Doe",
     condition: "Migraine",
     visitedDate: "2023-10-15", // Replace with the actual visited date
+    ID: 10
   },
 ];
 
