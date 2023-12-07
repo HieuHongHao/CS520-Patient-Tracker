@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/select";
+import {Button} from "./components/button";
 
 export default function DoctorProfile() {
   return (
@@ -26,6 +27,7 @@ export default function DoctorProfile() {
       </div>
       <div className="font-medium text-sm mt-7">Specialization</div>
       <SpecializationSelector/>
+      <Button className="w-max ml-1 mt-10">Update profile</Button>
     </div>
   );
 }
