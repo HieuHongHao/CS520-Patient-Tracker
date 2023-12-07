@@ -52,9 +52,9 @@ export const register = async (req, res) => {
     // TODO: register flow for Doctor/Patient requires respective fields. Mark fields
     // non-required for now.
     if (role === 'Doctor') {
-      await Doctor.create({ userId: newUser._id });
+      await Doctor.create({ userId: newUser._id, specialization });
     } else {
-      await Patient.create({ userId: newUser._id });
+      await Patient.create({ userId: newUser._id, dob });
     }
 
     // Create and send JWT token
