@@ -4,9 +4,9 @@ import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
 import { PatientRecords } from "./PatientRecords";
-import { DoctorRecords } from "./DoctorRecords";
-import {Button} from "./components/button";
-import DoctorProfile from "./pages/DoctorPage/DoctorProfile";
+import { DoctorRecords } from "../DoctorPage/DoctorRecords";
+import {Button} from "../../components/button";
+import DoctorProfile from "../DoctorPage/DoctorProfile";
 
 
 export default function PatientPage() {

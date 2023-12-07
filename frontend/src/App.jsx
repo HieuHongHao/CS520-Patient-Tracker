@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
-import DoctorPage from "./pages/DoctorPage/DoctorPage";
-import PatientPage from "./PatientPage";
-import BookPage from "./BookPage";
+import DoctorPage from "./pages/DoctorPage";
+import PatientPage from "./pages/PatientPage";
+import BookPage from "./pages/BookPage";
 import LandingPage from "./pages/LandingPage";
-import LoginPage from "./Login";
+import LoginPage from "./pages/LoginPage/Login";
 import { AuthProvider } from "./context/AuthContext";
 
 export default function App() {

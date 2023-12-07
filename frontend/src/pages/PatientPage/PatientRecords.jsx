@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
   TableCaption,
-} from "./components/table";
+} from "../../components/table";
 import {
   Dialog,
   DialogContent,
@@ -16,12 +16,12 @@ import {
   DialogTrigger,
   DialogClose,
   DialogFooter,
-} from "./components/Diaglog";
-import { Input } from "./components/Input";
-import { Textarea } from "./components/Textarea";
-import { DatePicker } from "./components/DatePicker";
-import { DataTable } from "./components/DataTable";
-import { Button } from "./components/button";
+} from "../../components/Diaglog";
+import { Input } from "../../components/Input";
+import { Textarea } from "../../components/Textarea";
+import { DatePicker } from "../../components/DatePicker";
+import { DataTable } from "../../components/DataTable";
+import { Button } from "../../components/button";
 import { useState } from "react";
 import { cloneDeep } from "lodash";
 

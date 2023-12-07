@@ -4,10 +4,10 @@ import {
   CardContent,
   CardFooter,
   Card,
-} from "./components/card";
-import { Badge } from "./components/Badge";
-import { AvatarImage, AvatarFallback, Avatar } from "./components/avatar";
-import { Button } from "./components/button";
+} from "../../components/card";
+import { Badge } from "../../components/Badge";
+import { AvatarImage, AvatarFallback, Avatar } from "../../components/avatar";
+import { Button } from "../../components/button";
 
 export default function Appointment() {
   return (

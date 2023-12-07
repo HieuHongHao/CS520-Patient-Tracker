@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-import { loginUser } from "./api/user";
-import { useAuth } from "./context/AuthContext";
+import { loginUser } from "../../api/user";
+import { useAuth } from "../../context/AuthContext";
 
 import imgURL from "/Heal.png"
 

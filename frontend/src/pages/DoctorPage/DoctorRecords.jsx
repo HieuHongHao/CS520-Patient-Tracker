@@ -6,7 +6,7 @@ import {
     TableHeader,
     TableRow,
     TableCaption,
-  } from "./components/table";
+  } from "../../components/table";
   import {
     Dialog,
     DialogContent,
@@ -14,12 +14,12 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-  } from "./components/Diaglog";
+  } from "../../components/Diaglog";
   
   
   
-  import { DataTable } from "./components/DataTable";
-  import { Button } from "./components/button";
+  import { DataTable } from "../../components/DataTable";
+  import { Button } from "../../components/button";
   
   const columns = [
     {
