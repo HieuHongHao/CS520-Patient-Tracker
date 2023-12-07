@@ -4,8 +4,8 @@ import { getAll, getOne, getDoctorAppointments } from '../controllers/doctorCont
 import { authenticate } from '../middlewares/authentication.js';
 const router = express.Router();
 
-router.get("/", getAll);
-router.get("/:id", getOne);
-router.get("/:id/appointments", getDoctorAppointments);
+router.get("/", authenticate, getAll);
+router.get("/:id", authenticate, getOne);
+router.get("/:id/appointments", authenticate, getDoctorAppointments);
 
 export default router;

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // ONLY DOCTOR CREATE/UPDATE???
 router.post('/', authenticate, addOne);
-router.get('/:id', getOne);
+router.get('/:id', authenticate, getOne);
 router.put('/:id', authenticate, updateOne);
 
 export default router;
