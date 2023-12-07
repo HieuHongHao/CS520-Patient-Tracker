@@ -3,10 +3,10 @@ import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
-import { PatientRecords } from "./PatientRecords";
-import {Button} from "./components/button";
+import { PatientRecords } from "../../PatientRecords";
+import {Button} from "../../components/button";
 import DoctorProfile from "./DoctorProfile";
-import Appointment from "./Appointment";
+import Appointment from "../../Appointment";
 
 
 export default function DoctorPage() {

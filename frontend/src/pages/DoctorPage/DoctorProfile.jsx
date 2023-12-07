@@ -1,12 +1,12 @@
-import { Input } from "./components/Input";
+import { Input } from "../../components/Input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./components/select";
-import {Button} from "./components/button";
+} from "../../components/select";
+import {Button} from "../../components/button";
 
 export default function DoctorProfile() {
   return (

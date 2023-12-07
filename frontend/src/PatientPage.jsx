@@ -6,7 +6,7 @@ import { Tab } from "@headlessui/react";
 import { PatientRecords } from "./PatientRecords";
 import { DoctorRecords } from "./DoctorRecords";
 import {Button} from "./components/button";
-import DoctorProfile from "./DoctorProfile";
+import DoctorProfile from "./pages/DoctorPage/DoctorProfile";
 
 
 export default function PatientPage() {
