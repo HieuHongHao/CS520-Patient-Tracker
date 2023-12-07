@@ -94,9 +94,9 @@ export const deleteOne = async (req, res) => {
 
 // Get list of medical histories based on patientId/patientId
 export const getMedicalHistoriesByPatientId = async (req, res) => {
-  const { patientId } = req.params;
+  const { id } = req.params;
   try {
-    const medicalHistories = await MedicalHistory.find({ patientId: patientId });
+    const medicalHistories = await MedicalHistory.find({ patientId: id });
     res.send({
       message: 'Medical histories retrieved successfully',
       data: medicalHistories,

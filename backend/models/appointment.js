@@ -22,10 +22,6 @@ const appointmentSchema = new Schema({
     required: true, 
     maxlength: 200 
   },
-  prescription: { 
-    type: Schema.Types.ObjectId, 
-    ref: 'Prescription' 
-  }
 });
 
 const Appointment = model('Appointment', appointmentSchema);

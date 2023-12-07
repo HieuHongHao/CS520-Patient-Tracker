@@ -1,21 +1,52 @@
-import Appointment from "../models/appointment";
+import Appointment from "../models/appointment.js";
+import mongoose from "mongoose";
 
+const checkAvailabilityHelper = async (date, time, doctorId) => {
+  console.log(date, time);
+  const [year, month, day] = date.split('-');
+  const [hours, minutes] = time.split(':');
+  const appointmentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+
+  const timeStart = new Date(appointmentTime.getTime() - 60 * 60000);
+  const timeEnd = new Date(appointmentTime.getTime() + 60 * 60000);
+  console.log(doctorId);
+  console.log(timeStart.getUTCHours(), timeStart.getMinutes(), timeStart.getSeconds());
+  console.log(timeEnd.getUTCHours(), timeEnd.getMinutes(), timeEnd.getSeconds());
+  const appointments = await Appointment.find({
+    doctor: doctorId,
+    dateAndTime: {
+      $gte: timeStart,
+      $lte: timeEnd,
+    },
+  });
+  console.log(appointments);
+  return appointments;
+}
 //BOOK APPOINTMENT
 export const bookAppointment = async (req, res) => {
-  const { patientId, doctorId, date, time, reason, prescriptionId } = req.body;
+  const { id: doctorId } = req.params;
+  // PatientId should be get FROM THE TOKEN!!
+  const { date, time, reason } = req.body;
+  const patientId = "6152f43d72d4cfe6fc37e675";
+  const appointments = await checkAvailabilityHelper(date, time, doctorId);
 
-  try {
+  if (appointments.length > 0) {
+    return res.status(400).send({
+      message: "Appointments not available",
+    });
+  }
+  // try {
     // const dateTime = new Date(`${date}T${time}`);
     const [year, month, day] = date.split('-');
     const [hours, minutes] = time.split(':');
     const appointmentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
 
     const newAppointment = new Appointment({
-      patient: mongoose.Types.ObjectId(patientId),
-      doctor: mongoose.Types.ObjectId(doctorId),
+      patient: patientId,
+      doctor: doctorId,
       dateAndTime: appointmentTime,
       reason: reason,
-      prescription: prescriptionId ? mongoose.Types.ObjectId(prescriptionId) : null
+      // prescription: prescriptionId ? mongoose.Types.ObjectId(prescriptionId) : null
     });
 
     // Save the appointment
@@ -27,37 +58,40 @@ export const bookAppointment = async (req, res) => {
       data: newAppointment
     });
 
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'An error occurred while booking the appointment',
-      error: error.message
-    });
-  }
+  // } catch (error) {
+  //   res.status(500).json({
+  //     success: false,
+  //     message: 'An error occurred while booking the appointment',
+  //     error: error.message
+  //   });
+  // }
 };
 
 // check doctor availabilibty
 export const checkAvailability = async (req, res) => {
   try {
-    const { date, time, doctorId } = req.body; // Expecting date format: "YYYY-MM-DD", time format: "HH:mm"
+    const { id: doctorId } = req.params;
+    const { date, time } = req.body; // Expecting date format: "YYYY-MM-DD", time format: "HH:mm"
 
-    const [year, month, day] = date.split('-');
-    const [hours, minutes] = time.split(':');
-    const appointmentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+    // const [year, month, day] = date.split('-');
+    // const [hours, minutes] = time.split(':');
+    // const appointmentTime = new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
 
-    const timeStart = new Date(appointmentTime.getTime() - 60 * 60000);
-    const timeEnd = new Date(appointmentTime.getTime() + 60 * 60000);
+    // const timeStart = new Date(appointmentTime.getTime() - 60 * 60000);
+    // const timeEnd = new Date(appointmentTime.getTime() + 60 * 60000);
 
-    const appointments = await Appointment.find({
-      doctorId,
-      dateAndTime: {
-        $gte: timeStart,
-        $lte: timeEnd,
-      },
-    });
+    // const appointments = await Appointment.find({
+    //   doctorId,
+    //   dateAndTime: {
+    //     $gte: timeStart,
+    //     $lte: timeEnd,
+    //   },
+    // });
+
+    const appointments = await checkAvailabilityHelper(date, time, doctorId);
 
     if (appointments.length > 0) {
-      res.status(200).send({
+      res.status(400).send({
         message: "Appointments not available",
       });
     } else {
