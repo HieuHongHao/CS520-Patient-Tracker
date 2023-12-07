@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
 import { Tab } from "@headlessui/react";
-import { PatientRecords } from "./PatientRecords";
-import { DoctorRecords } from "../DoctorPage/DoctorRecords";
+import { PatientRecords } from "../DoctorPage/PatientRecords";
+import { DoctorRecords } from "./DoctorRecords";
 import { Button } from "../../components/button";
 import DoctorProfile from "../DoctorPage/DoctorProfile";
 import { useAuth } from '../../context/AuthContext'

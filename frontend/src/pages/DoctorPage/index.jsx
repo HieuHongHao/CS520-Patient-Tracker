@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
-import { PatientRecords } from "../PatientPage/PatientRecords";
+import { PatientRecords } from "./PatientRecords";
 import { Button } from "../../components/button";
 import DoctorProfile from "./DoctorProfile";
 import Appointment from "./Appointment";
