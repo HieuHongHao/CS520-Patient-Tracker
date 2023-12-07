@@ -15,7 +15,7 @@ import { useAuth } from '../../context/AuthContext';
 export default function DoctorPage() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user: doctor } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -52,7 +52,7 @@ export default function DoctorPage() {
       <Tab.Panels as="div" className=" min-h-full w-5/6">
         <div className="flex flex-row border-b border-slate-200 mt-5 pb-3 ">
           <div className="text-sm font-semibold ml-auto mr-5 mt-2">
-            doctor@gmail.com
+            {doctor.email}
           </div>
           <img
             src={doctorURL}
