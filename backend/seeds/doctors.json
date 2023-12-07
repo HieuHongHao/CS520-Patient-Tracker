@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "6152f3b572d4cfe6fc37e65a",
+    "email": "doctormundo@gmail.com",
+    "password": "123456",
+    "role": "Doctor",
+    "phone": "1234567899",
+    "firstName": "Mundo",
+    "lastName": "XX",
+    "specialization": "LOL"
+  }
+]

@@ -2,10 +2,14 @@ import MedicalHistory from '../models/medicalHistory.js';
 
 // Add a new medical history record
 export const addOne = async (req, res) => {
+  // doctorID from token
+  const doctorId = "6152f3b572d4cfe6fc37e65a";
   // patientId is patient id
-  const { patientId, name, type, medicationUsed } = req.body;
+  const { patientId, condition, description, visitedDate } = req.body;
+  const [year, month, day] = visitedDate.split('-');
+  const visitedDateObj = new Date(`${year}-${month}-${day}`);
   const newMedicalHistory = new MedicalHistory({
-    patientId, name, type, medicationUsed
+    patientId, doctorId, condition, description, visitedDate: visitedDateObj
   });
 
   try {
@@ -45,7 +49,9 @@ export const getOne = async (req, res) => {
 
 // Update a medical history record
 export const updateOne = async (req, res) => {
-  const { patientId, name, type, medicationUsed } = req.body;
+  const { condition, description, visitedDate } = req.body;
+  const [year, month, day] = visitedDate.split('-');
+  const visitedDateObj = new Date(`${year}-${month}-${day}`);
   const { id } = req.params;
   try {
     const medicalHistory = await MedicalHistory.findById(id);
@@ -53,10 +59,10 @@ export const updateOne = async (req, res) => {
       return res.status(404).send({ message: 'Medical history not found' });
     }
 
-    medicalHistory.patientId = patientId;
-    medicalHistory.name = name;
-    medicalHistory.type = type;
-    medicalHistory.medicationUsed = medicationUsed;
+    // medicalHistory.patientId = patientId;
+    medicalHistory.condition = condition;
+    medicalHistory.description = description;
+    medicalHistory.visitedDate = visitedDateObj;
     await medicalHistory.save();
 
     res.send({
@@ -87,23 +93,6 @@ export const deleteOne = async (req, res) => {
   } catch (err) {
     res.status(500).send({
       message: 'An error occurred while deleting the medical history',
-      error: err.message,
-    });
-  }
-};
-
-// Get list of medical histories based on patientId/patientId
-export const getMedicalHistoriesByPatientId = async (req, res) => {
-  const { patientId } = req.params;
-  try {
-    const medicalHistories = await MedicalHistory.find({ patientId: patientId });
-    res.send({
-      message: 'Medical histories retrieved successfully',
-      data: medicalHistories,
-    });
-  } catch (err) {
-    res.status(500).send({
-      message: 'An error occurred while retrieving medical histories',
       error: err.message,
     });
   }

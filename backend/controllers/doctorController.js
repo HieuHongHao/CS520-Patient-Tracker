@@ -1,4 +1,6 @@
 import { Doctor, User } from '../models/user.js';
+import MedicalHistory from '../models/medicalHistory.js';
+import Appointment from "../models/appointment.js";
 import mongoose from 'mongoose';
 
 export const getAll = async (req, res) => {
@@ -40,6 +42,42 @@ export const getOne = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: 'An error occurred while retrieving the doctor',
+      error: err.message,
+    });
+  }
+};
+
+export const getDoctorAppointments = async (req, res) => {
+  try {
+    const { id: doctorId } = req.params;
+    const appointments = await Appointment.find({
+      doctor: doctorId,
+    });
+    res.status(200).send({
+      message: "Fetch doctor's appointments successfully",
+      data: appointments,
+    });
+  } catch (err) {
+    // console.log(err);
+    res.status(500).send({
+      message: "Error in doctor appointments",
+      error: err.message()
+    });
+  }
+};
+
+// Get list of medical histories associated with doctorId - Doctor view
+export const getMedicalHistoriesByDoctorId = async (req, res) => {
+  const { doctorId } = req.params;
+  try {
+    const medicalHistories = await MedicalHistory.find({ doctorId: doctorId }).populate('patientId');
+    res.send({
+      message: 'Medical histories retrieved successfully',
+      data: medicalHistories,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: 'An error occurred while retrieving medical histories',
       error: err.message,
     });
   }
