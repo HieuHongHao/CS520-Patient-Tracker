@@ -1,16 +1,27 @@
 import { useState } from "react";
-import imgURL from "/Heal.png";
-import doctorURL from "/Doctor.jpeg";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+
+import imgURL from "/Heal.png";
+import doctorURL from "/Doctor.jpeg";
 import { PatientRecords } from "../PatientPage/PatientRecords";
-import {Button} from "../../components/button";
+import { Button } from "../../components/button";
 import DoctorProfile from "./DoctorProfile";
 import Appointment from "../BookPage/Appointment";
+import { useAuth } from '../../context/AuthContext';
 
 
 export default function DoctorPage() {
   const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    // Moves to landing page.
+    navigate('/');
+  }
 
   return (
     <Tab.Group as={"div"} className="flex flex-row h-screen">
@@ -28,13 +39,13 @@ export default function DoctorPage() {
           </div>
         </Tab>
         <Tab className="flex flex-row mt-4 space-x-3 ml-2 group hover:bg-gray-50 hover:text-indigo-600 hover:font-semibold rounded-md focus:bg-gray-50 focus:text-indigo-600 focus:font-semibold mr-3 py-2 outline-none pl-3">
-          <Calendar className="w-8 h-8 object-cover px-1 text-slate-600 group-hover:text-indigo-600 group-focus:text-indigo-600"/>
+          <Calendar className="w-8 h-8 object-cover px-1 text-slate-600 group-hover:text-indigo-600 group-focus:text-indigo-600" />
           <div className="font-medium mt-1 leading-6">
             Appointments
           </div>
         </Tab>
         <Tab className="flex flex-row mt-4 space-x-3 ml-2 group hover:bg-gray-50 hover:text-indigo-600 hover:font-semibold rounded-md focus:bg-gray-50 focus:text-indigo-600 focus:font-semibold mr-3 py-2 outline-none pl-3">
-          <User className="w-8 h-8 object-cover px-1 text-slate-600 group-hover:text-indigo-600 group-focus:text-indigo-600"/>
+          <User className="w-8 h-8 object-cover px-1 text-slate-600 group-hover:text-indigo-600 group-focus:text-indigo-600" />
           <div className="font-medium mt-1 leading-6">Profile</div>
         </Tab>
       </Tab.List>
@@ -50,7 +61,7 @@ export default function DoctorPage() {
           {/* <button className="font-semibold mr-10 text-sm hover:font-bold ">
             Sign Out
           </button> */}
-          <Button variant={"default"} className="mr-5">Sign out</Button>
+          <Button variant={"default"} className="mr-5" onClick={handleLogout}>Sign out</Button>
         </div>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">
@@ -60,11 +71,11 @@ export default function DoctorPage() {
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
-          <Appointment/>
+          <Appointment />
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Profile</div>
-          <DoctorProfile/>
+          <DoctorProfile />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
