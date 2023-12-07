@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 
 import imgURL from "/Heal.png"
 
-export default function Login() {
+export default function LoginPage() {
   const [credentialInfo, setCredentialInfo] = useState({ email: '', password: '' });
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -81,8 +81,8 @@ export default function Login() {
           <div className="border-t h-2 border-slate-900/20 ml-2 mt-2 self-center w-2/3"></div>
         </div>
         <button
-          type="submit"
           className="self-center w-1/4 h-max py-2 px-4 font-semibold rounded-md mt-5 hover:bg-slate-100 text-sm ring-1 ring-slate-700/25"
+          onClick={()=>navigate('/register')}
         >
           Create new account
         </button>
