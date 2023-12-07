@@ -5,6 +5,7 @@ import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
 import { PatientRecords } from "./PatientRecords";
 import {Button} from "./components/button";
+import DoctorProfile from "./DoctorProfile";
 
 
 export default function DoctorPage() {
@@ -61,6 +62,7 @@ export default function DoctorPage() {
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Profile</div>
+          <DoctorProfile/>
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
