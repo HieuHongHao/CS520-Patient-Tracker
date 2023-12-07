@@ -59,8 +59,8 @@ export const register = async (req, res) => {
     // Create and send JWT token
     const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1d' });
 
-    // res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ token, user: filterUserFields(newUser) });
+    res.cookie('token', token, { httpOnly: true });
+    res.status(200).json({ user: filterUserFields(newUser) });
   } catch (error) {
     console.error(error);
     res.status(500).send("Invalid email or password");
@@ -86,10 +86,17 @@ export const login = async (req, res) => {
     // Create and send JWT token
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1d' });
 
-    // res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ token, user: filterUserFields(user) });
+    res.cookie('token', token, { httpOnly: true });
+    res.status(200).json({ user: filterUserFields(user) });
   } catch (error) {
     console.error(error);
     res.status(500).send("Invalid email or password");
   }
+};
+
+// We set token in HttpOnly cookie, only backend can delete, 
+// through this controller.
+export const logout = async (req, res) => {
+  res.cookie('token', '', { expires: new Date(0), httpOnly: true });
+  res.status(200).json({message: "Logout success!"});
 };

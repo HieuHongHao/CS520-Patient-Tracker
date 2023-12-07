@@ -1,5 +1,6 @@
 import express from 'express';
 import { bookAppointment, checkAvailability, getPatientAppointments, getMedicalHistoriesByPatientId } from '../controllers/patientController.js';
+import { authenticate } from '../middlewares/authentication.js';
 
 const router = express.Router();
 

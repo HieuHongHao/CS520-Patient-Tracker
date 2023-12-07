@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { logoutUser } from '../api/user';
 
 const AuthContext = createContext();
 
@@ -26,9 +27,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // Remove token from cookie, need backend for this.
+    logoutUser().catch((e) => console.log("Error: ", e));
     setUser(null);
     localStorage.removeItem('user');
-    // TODO: remove token from cookie.
   };
 
   return (
