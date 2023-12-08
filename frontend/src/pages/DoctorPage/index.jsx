@@ -53,7 +53,7 @@ export default function DoctorPage() {
       <Tab.Panels as="div" className=" min-h-full w-5/6">
         <div className="flex flex-row border-b border-slate-200 mt-5 pb-3 ">
           <div className="text-sm font-semibold ml-auto mr-5 mt-2">
-            {doctor.email}
+            {doctor.firstName} {doctor.lastName} | {doctor.email}
           </div>
           <img
             src={doctorURL}
