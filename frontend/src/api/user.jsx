@@ -1,6 +1,6 @@
 import { api } from './util';
 
-const API_URL = `/api/user`; // Replace with your actual API URL
+const API_URL = `/api/user`; 
 
 export const loginUser = async ({ email, password }) => {
   try {

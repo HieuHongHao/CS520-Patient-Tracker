@@ -22,9 +22,9 @@ export default function RegisterPage() {
       // Goes to landing page for further redirection.
       navigate('/');
 
+      message.success("Login success!");
     } catch (err) {
-      // TODO: add snackbar for error msg.
-      console.log("Error", err.data);
+      message.error(err.data.message);
     }
   }
 

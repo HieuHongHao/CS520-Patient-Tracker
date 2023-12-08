@@ -24,9 +24,9 @@ export default function LoginPage() {
       // Goes to landing page.
       navigate('/');
 
+      message.success("Login success!");
     } catch (err) {
       message.error(err.data.message);
-
     }
   }
 
