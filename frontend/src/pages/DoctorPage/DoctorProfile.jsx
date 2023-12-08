@@ -52,20 +52,27 @@ export default function DoctorProfile() {
         This is your phone number
       </div>
       <div className="font-medium text-sm mt-7">Specialization</div>
-      {/* TODO: Not sure how to pass "onChange" function, leaving this to Chien. */}
-      <SpecializationSelector />
+      <SpecializationSelector setProfile={setProfile}/>
       <Button className="w-max ml-1 mt-10" onClick={handleProfileUpdate}>Update profile</Button>
     </div>
   );
 }
 
-function SpecializationSelector({ onChange }) {
+function SpecializationSelector({ setProfile }) {
   return (
-    <Select>
-      <SelectTrigger className="w-[180px] mt-2">
+    <Select onValueChange={value => {
+      console.log(value);
+      setProfile(prev => {
+        return {
+          ...prev,
+          specialization: value
+        }
+      })
+    }}>
+      <SelectTrigger className="w-[180px] mt-2" >
         <SelectValue placeholder="Role" />
       </SelectTrigger>
-      <SelectContent onChange={onChange}>
+      <SelectContent >
         <SelectItem value="top">Top</SelectItem>
         <SelectItem value="bot">Bot</SelectItem>
         <SelectItem value="mid">Mid</SelectItem>
