@@ -10,37 +10,43 @@ import { AvatarImage, AvatarFallback, Avatar } from "../../components/avatar";
 import { Button } from "../../components/button";
 import { getDoctorAppointments } from "../../api/doctor";
 import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 
+export default function Appointments() {
+  const [appointments, setAppointments] = useState([]);
+  const { user } = useAuth();
 
-function Appointments() {
-   const [appointments, setAppointments] = useState([]);
-   
-   useEffect(() => {
-     getDoctorAppointments().then(res => {
+  useEffect(() => {
+    getDoctorAppointments("6152f3b572d4cfe6fc37e65a").then((res) => {
       setAppointments([...res]);
-     })
-     
-   }, [])
-   
-   return (
-      <div>Test</div>
+    });
+  }, []);
 
-   )
+  console.log(user);
+
+  return (
+    <div className="flex flex-row flex-wrap ">
+      {appointments.length > 0 && user ? (
+        appointments.map((appointment) => {
+          console.log(user);
+          return (
+            <Appointment
+              doctorName={`${user.firstName + " " + user.lastName}`}
+              key={appointment.doctorID}
+            />
+          );
+        })
+      ) : (
+        <div>Loading</div>
+      )}
+    </div>
+  );
 }
 
-export default function Appointment() {
-  const [appointments, setAppointments] = useState([]);
-   
-   useEffect(() => {
-     getDoctorAppointments("6152f3b572d4cfe6fc37e65a").then(res => {
-      setAppointments([...res]);
-     })
-     
-   }, [])
+ function Appointment({ doctorName }) {
 
-   console.log(appointments);
   return (
-    <Card className="mt-5 p-4 w-2/6">
+    <Card className="mt-5 p-4 w-2/6 ml-3">
       <CardHeader>
         <CardTitle className="flex flex-row">
           HIV Checkup
@@ -54,10 +60,10 @@ export default function Appointment() {
               alt="Doctor's avatar"
               src="/placeholder.svg?height=40&width=40"
             />
-            <AvatarFallback>Dr</AvatarFallback>
+            <AvatarFallback>{`Doctor`}</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
-            <h4 className="text-sm font-semibold">Dr. John Doe</h4>
+            <h4 className="text-sm font-semibold">{`Dr. ${doctorName}`}</h4>
             <p className="text-[0.8125rem] text-gray-500 dark:text-gray-400">
               Cardiologist
             </p>

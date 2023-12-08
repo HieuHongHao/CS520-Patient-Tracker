@@ -72,10 +72,10 @@ export const getDoctorAppointments = async (req, res) => {
     const { id: doctorId } = req.params;
     const appointments = await Appointment.find({
       doctorId: doctorId,
-    });
+    })
     res.status(200).json(appointments);
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     res.status(500).send({
       message: err.message,
     });

@@ -10,6 +10,7 @@ import { Button } from "../../components/button";
 import DoctorProfile from "./DoctorProfile";
 import Appointment from "./Appointment";
 import { useAuth } from '../../context/AuthContext';
+import Appointments from "./Appointment";
 
 
 export default function DoctorPage() {
@@ -69,7 +70,7 @@ export default function DoctorPage() {
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
-          <Appointment />
+          <Appointments/>
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Profile</div>
