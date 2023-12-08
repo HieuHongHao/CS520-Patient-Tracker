@@ -10,3 +10,13 @@ export const updateDoctor = async (id, data) => {
     throw error.response;
   }
 };
+
+export const getDoctorAppointments = async (doctorID) => {
+  try {
+    const response = await api.get(`${API_URL}/${doctorID}/appointments`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error.response;
+  }
+}

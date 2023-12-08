@@ -71,7 +71,7 @@ export const getDoctorAppointments = async (req, res) => {
   try {
     const { id: doctorId } = req.params;
     const appointments = await Appointment.find({
-      doctor: doctorId,
+      doctorId: doctorId,
     });
     res.status(200).json(appointments);
   } catch (err) {

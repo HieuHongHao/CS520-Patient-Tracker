@@ -25,7 +25,7 @@ export default function DoctorPage() {
 
   // Postpone render until finish loading.
   return loading ? null : (
-    <Tab.Group as={"div"} className="flex flex-row h-screen">
+    <Tab.Group as={"div"} className="flex flex-row h-screen" defaultIndex={0}>
       <Tab.List className="flex flex-col border-r border-slate-200 w-1/6 h-full">
         <div className="flex flex-row mt-4 space-x-3">
           <img src={imgURL} className="w-10 h-10 ml-1 mt-2 rounded-full" />

@@ -8,8 +8,37 @@ import {
 import { Badge } from "../../components/Badge";
 import { AvatarImage, AvatarFallback, Avatar } from "../../components/avatar";
 import { Button } from "../../components/button";
+import { getDoctorAppointments } from "../../api/doctor";
+import { useState, useEffect } from "react";
+
+
+function Appointments() {
+   const [appointments, setAppointments] = useState([]);
+   
+   useEffect(() => {
+     getDoctorAppointments().then(res => {
+      setAppointments([...res]);
+     })
+     
+   }, [])
+   
+   return (
+      <div>Test</div>
+
+   )
+}
 
 export default function Appointment() {
+  const [appointments, setAppointments] = useState([]);
+   
+   useEffect(() => {
+     getDoctorAppointments("6152f3b572d4cfe6fc37e65a").then(res => {
+      setAppointments([...res]);
+     })
+     
+   }, [])
+
+   console.log(appointments);
   return (
     <Card className="mt-5 p-4 w-2/6">
       <CardHeader>
