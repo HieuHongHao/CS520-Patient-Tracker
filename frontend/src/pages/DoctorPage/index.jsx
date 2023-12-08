@@ -15,7 +15,7 @@ import { useAuth } from '../../context/AuthContext';
 export default function DoctorPage() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const { logout, user: doctor } = useAuth();
+  const { logout, user: doctor, loading } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -23,7 +23,8 @@ export default function DoctorPage() {
     navigate('/');
   }
 
-  return (
+  // Postpone render until finish loading.
+  return loading ? null : (
     <Tab.Group as={"div"} className="flex flex-row h-screen">
       <Tab.List className="flex flex-col border-r border-slate-200 w-1/6 h-full">
         <div className="flex flex-row mt-4 space-x-3">
@@ -58,9 +59,6 @@ export default function DoctorPage() {
             src={doctorURL}
             className="w-8 h-8 object-cover rounded-full mr-5"
           />
-          {/* <button className="font-semibold mr-10 text-sm hover:font-bold ">
-            Sign Out
-          </button> */}
           <Button variant={"default"} className="mr-5" onClick={handleLogout}>Sign out</Button>
         </div>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
