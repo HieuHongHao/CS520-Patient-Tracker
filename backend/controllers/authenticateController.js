@@ -1,17 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-import { User, Doctor, Patient } from '../models/user.js';
-import { jwtSecret } from '../config.js';
 import mongoose from 'mongoose';
 
-const filterUserFields = (user) => {
-  const allowedFields = ['email', 'firstName', 'lastName', 'role',
-    'phone', 'specialization', 'dob', '_id'];
-  const filteredUser = {};
-  allowedFields.forEach(field => filteredUser[field] = user[field]);
-  return filteredUser;
-}
+import { User, Doctor, Patient, filterUserFields } from '../models/user.js';
+import { jwtSecret } from '../config.js';
 
 export const register = async (req, res) => {
   const { email, password, lastName, firstName,
