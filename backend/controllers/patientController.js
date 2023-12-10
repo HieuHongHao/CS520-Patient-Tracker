@@ -10,9 +10,9 @@ const checkAvailabilityHelper = async (date, time, doctorId) => {
 
   const timeStart = new Date(appointmentTime.getTime() - 60 * 60000);
   const timeEnd = new Date(appointmentTime.getTime() + 60 * 60000);
-  console.log(doctorId);
-  console.log(timeStart.getUTCHours(), timeStart.getMinutes(), timeStart.getSeconds());
-  console.log(timeEnd.getUTCHours(), timeEnd.getMinutes(), timeEnd.getSeconds());
+  // console.log(doctorId);
+  // console.log(timeStart.getUTCHours(), timeStart.getMinutes(), timeStart.getSeconds());
+  // console.log(timeEnd.getUTCHours(), timeEnd.getMinutes(), timeEnd.getSeconds());
   const appointments = await Appointment.find({
     doctorId,
     dateAndTime: {
