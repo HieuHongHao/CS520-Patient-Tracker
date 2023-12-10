@@ -1,20 +1,13 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-import { User, Doctor, Patient } from '../models/user.js';
-import { jwtSecret } from '../config.js';
 import mongoose from 'mongoose';
 
-const filterUserFields = (user) => {
-  // add _id if needed. Also change _id to id if needed.
-  const allowedFields = ['email', 'firstName', 'lastName', 'role', 'phone'];
-  const filteredUser = {};
-  allowedFields.forEach(field => filteredUser[field] = user[field]);
-  return filteredUser;
-}
+import { User, Doctor, Patient, filterUserFields } from '../models/user.js';
+import { jwtSecret } from '../config.js';
 
 export const register = async (req, res) => {
-  const { email, password, lastName, firstName, phone, role } = req.body;
+  const { email, password, lastName, firstName,
+    phone, role, dob, specialization } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ errorL: 'Invalid email or password ' });
@@ -51,19 +44,19 @@ export const register = async (req, res) => {
     // TODO: register flow for Doctor/Patient requires respective fields. Mark fields
     // non-required for now.
     if (role === 'Doctor') {
-      await Doctor.create({ userId: newUser._id });
+      await Doctor.create({ userId: newUser._id, specialization });
     } else {
-      await Patient.create({ userId: newUser._id });
+      await Patient.create({ userId: newUser._id, dob });
     }
 
     // Create and send JWT token
     const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1d' });
 
     res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ user: filterUserFields(newUser) });
+    res.status(200).json(filterUserFields(newUser));
   } catch (error) {
     console.error(error);
-    res.status(500).send("Invalid email or password");
+    res.status(500).json({ message: "Invalid email or password" });
   }
 };
 
@@ -74,23 +67,23 @@ export const login = async (req, res) => {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send("Invalid email or password");
+      return res.status(500).json({ message: "Invalid email or password" });
     }
 
     // Compare the hashed password
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(401).send("Invalid email or password");
+      return res.status(500).json({ message: "Invalid email or password" });
     }
 
     // Create and send JWT token
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1d' });
 
     res.cookie('token', token, { httpOnly: true });
-    res.status(200).json({ user: filterUserFields(user) });
+    res.status(200).json(filterUserFields(user));
   } catch (error) {
     console.error(error);
-    res.status(500).send("Invalid email or password");
+    res.status(500).json({ message: "Invalid email or password" });
   }
 };
 
@@ -98,5 +91,5 @@ export const login = async (req, res) => {
 // through this controller.
 export const logout = async (req, res) => {
   res.cookie('token', '', { expires: new Date(0), httpOnly: true });
-  res.status(200).json({message: "Logout success!"});
+  res.status(200).json({ message: "Logout success!" });
 };

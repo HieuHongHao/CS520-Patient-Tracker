@@ -5,17 +5,18 @@ import { useNavigate } from "react-router-dom";
 
 import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
-import { PatientRecords } from "../PatientPage/PatientRecords";
+import { PatientRecords } from "./PatientRecords";
 import { Button } from "../../components/button";
 import DoctorProfile from "./DoctorProfile";
-import Appointment from "../BookPage/Appointment";
+import Appointment from "./Appointment";
 import { useAuth } from '../../context/AuthContext';
+import Appointments from "./Appointment";
 
 
 export default function DoctorPage() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user: doctor, loading } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -23,8 +24,9 @@ export default function DoctorPage() {
     navigate('/');
   }
 
-  return (
-    <Tab.Group as={"div"} className="flex flex-row h-screen">
+  // Postpone render until finish loading.
+  return loading ? null : (
+    <Tab.Group as={"div"} className="flex flex-row h-screen" defaultIndex={0}>
       <Tab.List className="flex flex-col border-r border-slate-200 w-1/6 h-full">
         <div className="flex flex-row mt-4 space-x-3">
           <img src={imgURL} className="w-10 h-10 ml-1 mt-2 rounded-full" />
@@ -52,15 +54,12 @@ export default function DoctorPage() {
       <Tab.Panels as="div" className=" min-h-full w-5/6">
         <div className="flex flex-row border-b border-slate-200 mt-5 pb-3 ">
           <div className="text-sm font-semibold ml-auto mr-5 mt-2">
-            doctor@gmail.com
+            {doctor.firstName} {doctor.lastName} | {doctor.email}
           </div>
           <img
             src={doctorURL}
             className="w-8 h-8 object-cover rounded-full mr-5"
           />
-          {/* <button className="font-semibold mr-10 text-sm hover:font-bold ">
-            Sign Out
-          </button> */}
           <Button variant={"default"} className="mr-5" onClick={handleLogout}>Sign out</Button>
         </div>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
@@ -71,7 +70,7 @@ export default function DoctorPage() {
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
-          <Appointment />
+          <Appointments/>
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Profile</div>

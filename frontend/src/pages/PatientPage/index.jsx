@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import imgURL from "/Heal.png";
 import doctorURL from "/Doctor.jpeg";
 import { Tab } from "@headlessui/react";
-import { PatientRecords } from "./PatientRecords";
-import { DoctorRecords } from "../DoctorPage/DoctorRecords";
+import { PatientRecords } from "../DoctorPage/PatientRecords";
+import { DoctorRecords } from "./DoctorRecords";
 import { Button } from "../../components/button";
 import DoctorProfile from "../DoctorPage/DoctorProfile";
 import { useAuth } from '../../context/AuthContext'
@@ -14,7 +14,7 @@ import { useAuth } from '../../context/AuthContext'
 export default function PatientPage() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user: patient } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -51,7 +51,7 @@ export default function PatientPage() {
       <Tab.Panels as="div" className=" min-h-full w-5/6">
         <div className="flex flex-row border-b border-slate-200 mt-5 pb-3 ">
           <div className="text-sm font-semibold ml-auto mr-5 mt-2">
-            patient@gmail.com
+            {patient.firstName} {patient.lastName} | {patient.email}
           </div>
           <img
             src={doctorURL}

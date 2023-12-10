@@ -22,9 +22,9 @@ export default function RegisterPage() {
       // Goes to landing page for further redirection.
       navigate('/');
 
+      message.success("Login success!");
     } catch (err) {
-      // TODO: add snackbar for error msg.
-      console.log("Error", err.data);
+      message.error(err.data.message);
     }
   }
 
@@ -114,6 +114,38 @@ export default function RegisterPage() {
           <label htmlFor="patient" className="ml-2 text-slate-700">
             Patient
           </label>
+        </div>
+
+        <div className='flex self-center mt-2'>
+          {registerInfo.role === 'Doctor' && (
+            <label>
+              Specialization:
+              <select value={registerInfo.specialization}
+                onChange={(e) => setRegisterInfo(prev => ({ ...prev, specialization: e.target.value }))}
+              >
+                <option value="">Select</option>
+                <option value="cardiology">Cardiology</option>
+                <option value="dermatology">Dermatology</option>
+                <option value="endocrinology">Endocrinology</option>
+                <option value="gastroenterology">Gastroenterology</option>
+                <option value="hematology">Hematology</option>
+                <option value="neurology">Neurology</option>
+                <option value="oncology">Oncology</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="rheumatology">Rheumatology</option>
+                <option value="urology">Urology</option>
+              </select>
+            </label>
+          )}
+
+          {registerInfo.role === 'Patient' && (
+            <label>
+              Date of Birth:
+              <input type="date" value={registerInfo.dob}
+                onChange={(e) => setRegisterInfo(prev => ({ ...prev, dob: e.target.value }))}
+              />
+            </label>
+          )}
         </div>
 
         <div className="text-sm font-medium text-slate-700 self-center w-1/4 mt-5">
