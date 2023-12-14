@@ -22,7 +22,7 @@ export default function PatientPage() {
     navigate('/');
   }
 
-  return (
+  return loading ? null : (
     <Tab.Group as={"div"} className="flex flex-row h-screen">
       <Tab.List className="flex flex-col border-r border-slate-200 w-1/6 h-full">
         <div className="flex flex-row mt-4 space-x-3">
