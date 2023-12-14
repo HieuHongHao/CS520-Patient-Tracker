@@ -60,7 +60,7 @@ export default function LoginPage() {
           Password
         </div>
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           className="w-1/4 h-max py-1 rounded-md ring-1 ring-slate-700/25 self-center mt-1 outline-none px-2 focus:ring-2 focus:ring-sky-500"
