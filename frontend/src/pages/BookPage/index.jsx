@@ -1,11 +1,14 @@
 import { DatePicker, message, TimePicker } from "antd";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 // import axios from "axios";
 // import { BACKEND_URL } from "../../config";
 import { checkAvailability, bookAppointment } from "../../api/patient";
 import { getDoctor } from "../../api/doctor";
 export default function BookPage() {
+  const navigate = useNavigate();
   const [doctor, setDoctor] = useState({});
   const [date, setDate] = useState("");
   const [time, setTime] = useState();
@@ -65,7 +68,7 @@ export default function BookPage() {
       // }
       const data = await getDoctor({ doctorId: params.doctorId });
       console.log(data);
-      setDoctor(data.data);
+      setDoctor(data);
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +76,6 @@ export default function BookPage() {
 
   useEffect(() => {
     handeGetDoctor();
-    // console.log("123");
   }, []);
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -122,15 +124,21 @@ export default function BookPage() {
         </div>
         <div className="flex justify-between mt-6">
           <button
+            onClick={() => navigate('/patient')}
+            className="px-3 py-2 bg-gray-500 text-white rounded-lg shadow hover:bg-gray-600 transition duration-300"
+          >
+            Back
+          </button>
+          <button
             onClick={handleCheckAvailability}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition duration-300"
+            className="px-3 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition duration-300"
           >
             Check Availability
           </button>
           {isAvailable && (
             <button
               onClick={handleBookAppointment}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition duration-300"
+              className="px-3 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition duration-300"
             >
               Book Appointment
             </button>
