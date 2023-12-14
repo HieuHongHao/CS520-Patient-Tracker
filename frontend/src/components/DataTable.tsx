@@ -24,8 +24,8 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
-  rowSelection,
-  setRowSelection
+  rowSelection = {},
+  setRowSelection = () => {}
 }: DataTableProps<TData, TValue>) {
   
   
