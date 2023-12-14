@@ -1,13 +1,4 @@
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCaption,
-} from "../../components/table";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -22,6 +13,14 @@ import { Textarea } from "../../components/Textarea";
 import { DatePicker } from "../../components/DatePicker";
 import { DataTable } from "../../components/DataTable";
 import { Button } from "../../components/button";
+import {
+  CardTitle,
+  CardDescription,
+  CardHeader,
+  CardContent,
+  Card,
+} from "../../components/card";
+import { Badge } from "../../components/Badge";
 import { useState, useEffect } from "react";
 import { cloneDeep } from "lodash";
 import {
@@ -42,73 +41,30 @@ const columns = [
     accessorKey: "visitedDate",
     header: "Visited Date",
   },
-];
-
-const patientsData = [
   {
-    name: "Jane Doe",
-    condition: "Diabetes",
-    visitedDate: "2023-01-01",
-    ID: "1",
-  },
-  {
-    name: "Bob Johnson",
-    condition: "Arthritis",
-    visitedDate: "2023-02-15",
-    ID: "2",
-  },
-  {
-    name: "Alice Smith",
-    condition: "Hypertension",
-    visitedDate: "2023-03-10",
-    ID: "3",
-  },
-  {
-    name: "John Doe",
-    condition: "Asthma",
-    visitedDate: "2023-04-20",
-    ID: "4",
-  },
-  {
-    name: "Eva Brown",
-    condition: "Migraine",
-    visitedDate: "2023-05-05",
-    ID: "5",
-  },
-  {
-    name: "Bob Johnson",
-    condition: "Diabetes",
-    visitedDate: "2023-06-12",
-    ID: "6",
-  },
-  {
-    name: "Alice Smith",
-    condition: "Arthritis",
-    visitedDate: "2023-07-18",
-    ID: "7",
-  },
-  {
-    name: "John Doe",
-    condition: "Hypertension",
-    visitedDate: "2023-08-22", // Replace with the actual visited date
-    ID: "8",
-  },
-  {
-    name: "Eva Brown",
-    condition: "Asthma",
-    visitedDate: "2023-09-30", // Replace with the actual visited date
-    ID: 9,
-  },
-  {
-    name: "Jane Doe",
-    condition: "Migraine",
-    visitedDate: "2023-10-15", // Replace with the actual visited date
-    ID: 10,
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row, table }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          size={"sm"}
+          onClick={() => {
+            table.toggleAllRowsSelected(false);
+            row.toggleSelected(true);
+          }}
+        >
+          View Details
+        </Button>
+      );
+    },
   },
 ];
 
 export function PatientRecords() {
   const [records, setRecords] = useState([]);
+
+  const [currentRecordView, setCurrentRecordView] = useState({});
 
   useEffect(() => {
     getAllMedicalHistories().then((res) => {
@@ -145,7 +101,16 @@ export function PatientRecords() {
         <AddMedicalRecordForm setRecords={setRecords} />
       </div>
 
-      <DataTable columns={columns} data={records} />
+      <DataTable
+        columns={columns}
+        data={records}
+        rowSelection={currentRecordView}
+        setRowSelection={setCurrentRecordView}
+      />
+
+      {Object.keys(currentRecordView).length === 1 && (
+        <RecordDetailView record={records[Object.keys(currentRecordView)[0]]} />
+      )}
     </div>
   );
 }
@@ -254,5 +219,92 @@ function AddMedicalRecordForm({ setRecords }) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function RecordDetailView({ record }) {
+  return (
+    <Card className="p-6 mt-7">
+      <CardHeader>
+        <div className="flex items-center">
+          <div className="ml-4">
+            <CardTitle className="text-lg font-bold">{record.name}</CardTitle>
+            <CardDescription className="text-gray-500">
+              Medical History
+            </CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-4 text-sm">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center">
+            <Badge className="items-center mr-2" variant="outline">
+              <StethoscopeIcon className="h-3.5 w-3.5 -translate-x-1" />
+              Condition
+            </Badge>
+            <span className="text-gray-600">{record.condition}</span>
+          </div>
+          <div className="flex items-center">
+            <CalendarDaysIcon className="mr-2 h-4 w-4 opacity-70" />
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              Last Visit: 12th December 2023
+            </span>
+          </div>
+        </div>
+        <p className="text-gray-600">
+          {record.description}
+        </p>
+        
+      </CardContent>
+    </Card>
+  );
+}
+
+function CalendarDaysIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+      <line x1="16" x2="16" y1="2" y2="6" />
+      <line x1="8" x2="8" y1="2" y2="6" />
+      <line x1="3" x2="21" y1="10" y2="10" />
+      <path d="M8 14h.01" />
+      <path d="M12 14h.01" />
+      <path d="M16 14h.01" />
+      <path d="M8 18h.01" />
+      <path d="M12 18h.01" />
+      <path d="M16 18h.01" />
+    </svg>
+  );
+}
+
+function StethoscopeIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+      <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+      <circle cx="20" cy="10" r="2" />
+    </svg>
   );
 }
