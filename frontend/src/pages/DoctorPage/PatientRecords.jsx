@@ -27,6 +27,7 @@ import {
   addMedicalHistory,
   getAllMedicalHistories,
 } from "../../api/medicalHistory";
+import formatDate from "../../utils";
 
 const columns = [
   {
@@ -247,7 +248,7 @@ function RecordDetailView({ record }) {
           <div className="flex items-center">
             <CalendarDaysIcon className="mr-2 h-4 w-4 opacity-70" />
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              Last Visit: 12th December 2023
+              {`Last Visit: ${formatDate(record.visitedDate)}`}
             </span>
           </div>
         </div>
