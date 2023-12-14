@@ -14,7 +14,7 @@ import { useAuth } from '../../context/AuthContext'
 export default function PatientPage() {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const { logout, user: patient } = useAuth();
+  const { logout, user: patient, loading } = useAuth();
 
   const handleLogout = () => {
     logout();
