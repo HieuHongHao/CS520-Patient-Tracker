@@ -24,6 +24,7 @@ import { DataTable } from "../../components/DataTable";
 import { Button } from "../../components/button";
 import { useState } from "react";
 import { cloneDeep } from "lodash";
+import { addMedicalHistory } from "../../api/medicalHistory";
 
 const columns = [
   {
@@ -126,12 +127,13 @@ export function PatientRecords() {
 function AddMedicalRecordForm({records,setRecords}) {
   const [newRecord, setNewRecord] = useState({
     condition: "",
-    ID: "",
+    patientId: "",
+    description: ""
   });
   const [date, setDate] = useState("");
   const [open, setOpen] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(newRecord);
     if (date) {
@@ -140,13 +142,23 @@ function AddMedicalRecordForm({records,setRecords}) {
       const day = date.getDate().toString().padStart(2, "0");
 
       const formattedDate = `${year}-${month}-${day}`;
-      const patient = records.find(record => record.ID === newRecord.ID);
+      
+      const result = await addMedicalHistory({
+        patientId: newRecord.patientId,
+        condition: newRecord.condition,
+        visitedDate: formattedDate,
+        description: newRecord.description
+      })
+      let newMedicalRecord = {};
+      newMedicalRecord["name"] = result.data.patiendId.firstName + " " + result.data.patiendId.firstName;
+      newMedicalRecord["description"] = result.data.description;
+      newMedicalRecord["condition"] = result.data.condition;
+      newMedicalRecord["visitedDate"] = formattedDate
+      newMedicalRecord["patientId"] = result.data.patiendId._id
+      console.log(newMedicalRecord);
       setRecords(prevRecords => {
         return [...prevRecords, {
-          ID: newRecord.ID,
-          condition: newRecord.condition,
-          name: patient.name,
-          visitedDate: formattedDate
+          newMedicalRecord
         }]
       })
       
@@ -171,7 +183,7 @@ function AddMedicalRecordForm({records,setRecords}) {
                 className="mt-2"
                 onChange={(e) => {
                   setNewRecord((prev) => {
-                    return { ...prev, ID: e.target.value };
+                    return { ...prev, patientId: e.target.value };
                   });
                 }}
               />
@@ -193,6 +205,11 @@ function AddMedicalRecordForm({records,setRecords}) {
               <Textarea
                 placeholder="Type checkup decription in detail here"
                 className="mt-2 h-52"
+                onChange={(e) => {
+                  setNewRecord((prev) => {
+                    return { ...prev, description: e.target.value };
+                  });
+                }}
               />
               <div className="text-[0.8125rem] text-foreground mt-3 font-semibold mb-2">
                 Visited Date
