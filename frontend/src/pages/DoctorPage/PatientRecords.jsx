@@ -22,9 +22,12 @@ import { Textarea } from "../../components/Textarea";
 import { DatePicker } from "../../components/DatePicker";
 import { DataTable } from "../../components/DataTable";
 import { Button } from "../../components/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cloneDeep } from "lodash";
-import { addMedicalHistory } from "../../api/medicalHistory";
+import {
+  addMedicalHistory,
+  getAllMedicalHistories,
+} from "../../api/medicalHistory";
 
 const columns = [
   {
@@ -45,13 +48,13 @@ const patientsData = [
   {
     name: "Jane Doe",
     condition: "Diabetes",
-    visitedDate: "2023-01-01", 
+    visitedDate: "2023-01-01",
     ID: "1",
   },
   {
     name: "Bob Johnson",
     condition: "Arthritis",
-    visitedDate: "2023-02-15", 
+    visitedDate: "2023-02-15",
     ID: "2",
   },
   {
@@ -63,25 +66,25 @@ const patientsData = [
   {
     name: "John Doe",
     condition: "Asthma",
-    visitedDate: "2023-04-20", 
+    visitedDate: "2023-04-20",
     ID: "4",
   },
   {
     name: "Eva Brown",
     condition: "Migraine",
-    visitedDate: "2023-05-05", 
+    visitedDate: "2023-05-05",
     ID: "5",
   },
   {
     name: "Bob Johnson",
     condition: "Diabetes",
-    visitedDate: "2023-06-12", 
+    visitedDate: "2023-06-12",
     ID: "6",
   },
   {
     name: "Alice Smith",
     condition: "Arthritis",
-    visitedDate: "2023-07-18", 
+    visitedDate: "2023-07-18",
     ID: "7",
   },
   {
@@ -105,7 +108,30 @@ const patientsData = [
 ];
 
 export function PatientRecords() {
-  const [records, setRecords] = useState(cloneDeep(patientsData));
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    getAllMedicalHistories().then((res) => {
+      const processedHistories = res.data.map((history) => {
+        const originalDate = new Date(history.visitedDate);
+        // Extract year, month, and day components
+        const year = originalDate.getFullYear();
+        const month = (originalDate.getMonth() + 1).toString().padStart(2, "0");
+        const day = originalDate.getDate().toString().padStart(2, "0");
+
+        // Create the formatted date string in "mm-dd-yyyy" format
+        const formattedDateString = `${month}-${day}-${year}`;
+        return {
+          name: history.patiendId.firstName + " " + history.patiendId.lastName,
+          description: history.description,
+          condition: history.condition,
+          visitedDate: formattedDateString,
+          patientId: history.patiendId._id,
+        };
+      });
+      setRecords(cloneDeep(processedHistories));
+    });
+  }, []);
 
   return (
     <div className="mt-5 mr-5">
@@ -116,7 +142,7 @@ export function PatientRecords() {
           placeholder="Search patient"
         />
 
-        <AddMedicalRecordForm setRecords={setRecords} records={records}/>
+        <AddMedicalRecordForm setRecords={setRecords} />
       </div>
 
       <DataTable columns={columns} data={records} />
@@ -124,11 +150,11 @@ export function PatientRecords() {
   );
 }
 
-function AddMedicalRecordForm({records,setRecords}) {
+function AddMedicalRecordForm({ setRecords }) {
   const [newRecord, setNewRecord] = useState({
     condition: "",
     patientId: "",
-    description: ""
+    description: "",
   });
   const [date, setDate] = useState("");
   const [open, setOpen] = useState(false);
@@ -141,29 +167,27 @@ function AddMedicalRecordForm({records,setRecords}) {
       const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based
       const day = date.getDate().toString().padStart(2, "0");
 
-      const formattedDate = `${year}-${month}-${day}`;
-      
+      const formattedDate = `${month}-${day}-${year}`;
+
       const result = await addMedicalHistory({
         patientId: newRecord.patientId,
         condition: newRecord.condition,
         visitedDate: formattedDate,
-        description: newRecord.description
-      })
+        description: newRecord.description,
+      });
       let newMedicalRecord = {};
-      newMedicalRecord["name"] = result.data.patiendId.firstName + " " + result.data.patiendId.firstName;
+      newMedicalRecord["name"] =
+        result.data.patiendId.firstName + " " + result.data.patiendId.lastName;
       newMedicalRecord["description"] = result.data.description;
       newMedicalRecord["condition"] = result.data.condition;
-      newMedicalRecord["visitedDate"] = formattedDate
-      newMedicalRecord["patientId"] = result.data.patiendId._id
+      newMedicalRecord["visitedDate"] = formattedDate;
+      newMedicalRecord["patientId"] = result.data.patiendId._id;
       console.log(newMedicalRecord);
-      setRecords(prevRecords => {
-        return [...prevRecords, {
-          newMedicalRecord
-        }]
-      })
-      
+      setRecords((prevRecords) => {
+        return [...prevRecords, newMedicalRecord];
+      });
     }
-  setOpen(false);
+    setOpen(false);
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>

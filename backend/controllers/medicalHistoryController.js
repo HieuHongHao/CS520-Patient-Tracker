@@ -56,6 +56,24 @@ export const getOne = async (req, res) => {
   }
 };
 
+export const getAll = async (req, res) => {
+  try {
+    const medicalHistories = await MedicalHistory.find().populate({
+      path: "patiendId",
+      select: "firstName lastName",
+    });
+    res.send({
+      message: "Medical histories found",
+      data: medicalHistories,
+    });
+  } catch (err) {
+    res.status(500).send({
+      message: "An error occurred while searching for the medical history",
+      error: err.message,
+    });
+  }
+};
+
 // Update a medical history record
 export const updateOne = async (req, res) => {
   const { condition, description, visitedDate } = req.body;
