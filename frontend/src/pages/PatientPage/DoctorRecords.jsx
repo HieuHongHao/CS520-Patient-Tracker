@@ -15,7 +15,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "../../components/Diaglog";
-  
+  import { useState } from "react";
   
   
   import { DataTable } from "../../components/DataTable";
@@ -104,6 +104,7 @@ import {
   ];
   
   export function DoctorRecords() {
+    const [currentRecordView, setCurrentRecordView] = useState({});
     return (
       <div className="mt-5 mr-5">
         <div className="flex flex-row">
@@ -130,7 +131,7 @@ import {
         </div>
         
   
-        <DataTable columns={columns} data={patientsData} />
+        <DataTable columns={columns} data={patientsData} rowSelection={currentRecordView} setRowSelection={setCurrentRecordView}/>
       </div>
     );
   }
