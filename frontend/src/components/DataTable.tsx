@@ -24,11 +24,19 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  rowSelection,
+  setRowSelection
 }: DataTableProps<TData, TValue>) {
+  
+  
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onRowSelectionChange: setRowSelection,
+    state:{
+      rowSelection
+    }
   })
 
   return (
