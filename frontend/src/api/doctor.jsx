@@ -29,3 +29,4 @@ export const getDoctorAppointments = async (doctorID) => {
     throw error.response;
   }
 }
+

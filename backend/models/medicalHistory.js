@@ -6,12 +6,14 @@ const medicalHistorySchema = new Schema({
   patiendId: {
     type: Schema.Types.ObjectId, 
     required: true, 
-    ref: 'Patient'
+    // ref: 'Patient',
+    ref: 'User'
   },
   doctorId: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'Doctor'
+    // ref: 'Doctor',
+    ref: 'User'
   },
   condition: { 
     type: String, 

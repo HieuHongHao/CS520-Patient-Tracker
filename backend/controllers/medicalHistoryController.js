@@ -57,6 +57,7 @@ export const updateOne = async (req, res) => {
     const medicalHistory = await MedicalHistory.findById(id);
     if (!medicalHistory) {
       return res.status(404).send({ message: 'Medical history not found' });
+      
     }
 
     // medicalHistory.patientId = patientId;

@@ -19,6 +19,7 @@ export default function LoginPage() {
       const data = await loginUser(credentialInfo);
       // fill logged in user data to AuthContext, to be used by other pages
       // e.g. check if logged in, display name, etc.
+      console.log(data);
       login(data);
 
       // Goes to landing page.
