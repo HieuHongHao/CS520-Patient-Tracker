@@ -79,11 +79,11 @@ export function PatientRecords() {
         // Create the formatted date string in "mm-dd-yyyy" format
         const formattedDateString = `${month}-${day}-${year}`;
         return {
-          name: history.patiendId.firstName + " " + history.patiendId.lastName,
+          name: history.patientId.firstName + " " + history.patientId.lastName,
           description: history.description,
           condition: history.condition,
           visitedDate: formattedDateString,
-          patientId: history.patiendId._id,
+          patientId: history.patientId._id,
         };
       });
       setRecords(cloneDeep(processedHistories));
@@ -143,11 +143,11 @@ function AddMedicalRecordForm({ setRecords }) {
       });
       let newMedicalRecord = {};
       newMedicalRecord["name"] =
-        result.data.patiendId.firstName + " " + result.data.patiendId.lastName;
+        result.data.patientId.firstName + " " + result.data.patientId.lastName;
       newMedicalRecord["description"] = result.data.description;
       newMedicalRecord["condition"] = result.data.condition;
       newMedicalRecord["visitedDate"] = formattedDate;
-      newMedicalRecord["patientId"] = result.data.patiendId._id;
+      newMedicalRecord["patientId"] = result.data.patientId._id;
       console.log(newMedicalRecord);
       setRecords((prevRecords) => {
         return [...prevRecords, newMedicalRecord];

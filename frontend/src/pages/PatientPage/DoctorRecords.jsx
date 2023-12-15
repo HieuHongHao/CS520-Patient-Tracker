@@ -125,11 +125,11 @@ import { getDoctor, getDoctors } from "../../api/doctor";
         //   // Create the formatted date string in "mm-dd-yyyy" format
         //   const formattedDateString = `${month}-${day}-${year}`;
         //   return {
-        //     name: history.patiendId.firstName + " " + history.patiendId.lastName,
+        //     name: history.patientId.firstName + " " + history.patientId.lastName,
         //     description: history.description,
         //     condition: history.condition,
         //     visitedDate: formattedDateString,
-        //     patientId: history.patiendId._id,
+        //     patientId: history.patientId._id,
         //   };
         // });
         // setRecords(cloneDeep(processedHistories));
