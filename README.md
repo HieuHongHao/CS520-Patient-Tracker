@@ -36,7 +36,25 @@ The Patient Tracker System is a digital platform designed to revolutionize patie
      npm install
      ```
 
-3. **Starting the Application**
+3. **Set Up Environment File**
+   - For the backend:
+     ```
+      cd backend
+      create .env file
+      Add the following environment variables to your file:
+      DB_URL = mongodb+srv://phuocthinhdn12023:8QJTiq0zVG5Wdu5U@cluster0.hizxfsh.mongodb.net/?retryWrites=true&w=majority
+      PORT = 3000
+      FRONTEND_URL=http://localhost:5173/
+     ```
+   - For the frontend:
+     ```
+      cd frontend
+      create .env file
+      Add the following environment variables to your file:
+      VITE_API_BACKEND_URL=http://localhost:3000
+     ```
+
+4. **Starting the Application**
    - To run the backend:
      ```
      cd backend
@@ -48,7 +66,7 @@ The Patient Tracker System is a digital platform designed to revolutionize patie
      npm run dev
      ```
 
-4. **Note**: the app will be serve on http://localhost:5173/
+5. **Note**: the app will be serve on http://localhost:5173/
 
 ## API Documentation
 
