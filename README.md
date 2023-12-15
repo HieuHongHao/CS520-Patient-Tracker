@@ -51,6 +51,7 @@ The Patient Tracker System is a digital platform designed to revolutionize patie
 
 4. **Note**: the app will be serve on http://localhost:5173/
 
+## API Doc
 
 ### Doctor Routes
 
