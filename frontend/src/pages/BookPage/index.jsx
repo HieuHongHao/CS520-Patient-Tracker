@@ -69,7 +69,7 @@ export default function BookPage() {
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
           Doctor Information
         </h2>
-        <div className="space-y-3">
+        <div className="space-y-3 ">
           <div className="text-gray-600">
             <strong>Email:</strong> {doctor.email}
           </div>
