@@ -9,6 +9,7 @@ The Patient Tracker System is a digital platform designed to revolutionize patie
 ## Technical Stack
 - **Frontend**: React
 - **Backend**: Node.js, Express
+- **Database**: MongoDB
 
 ## Installation
 
@@ -154,9 +155,4 @@ The Patient Tracker System is a digital platform designed to revolutionize patie
   - Fields: doctorId, patientId, other fields...
 - **Appointment Model:**
   - Fields: doctorId, patientId, other fields...
-
-<!-- ## How to Run
-
-1. Install dependencies: `npm install`
-2. Start the server: `npm start` -->
 
