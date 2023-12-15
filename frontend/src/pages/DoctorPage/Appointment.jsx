@@ -15,9 +15,9 @@ import { useAuth } from "../../context/AuthContext";
 export default function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const { user } = useAuth();
-
+  console.log(user);
   useEffect(() => {
-    getDoctorAppointments("6152f3b572d4cfe6fc37e65a").then((res) => {
+    getDoctorAppointments(user._id).then((res) => {
       setAppointments([...res]);
     });
   }, []);

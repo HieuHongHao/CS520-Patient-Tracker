@@ -14,7 +14,6 @@ export default function BookPage() {
   const [reason, setReason] = useState("");
   const [isAvailable, setIsAvailable] = useState(false);
   const params = useParams();
-  const navigate = useNavigate();
   const { user: patient, loading } = useAuth();
 
   const handleCheckAvailability = async () => {

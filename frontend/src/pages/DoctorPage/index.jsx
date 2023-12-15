@@ -27,6 +27,7 @@ export default function DoctorPage() {
 
   useEffect(() => {
     if (!doctor || doctor.role != 'Doctor') {
+      // console.log('123', doctor);
       message.error("Unauthorized.");
       navigate('/');
     }
