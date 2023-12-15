@@ -11,13 +11,14 @@ import { Button } from "../../components/button";
 import { getDoctorAppointments } from "../../api/doctor";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import formatDate from "../../utils";
 
 export default function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const { user } = useAuth();
-
+  console.log(user);
   useEffect(() => {
-    getDoctorAppointments("6152f3b572d4cfe6fc37e65a").then((res) => {
+    getDoctorAppointments(user._id).then((res) => {
       setAppointments([...res]);
     });
   }, []);
@@ -29,9 +30,19 @@ export default function Appointments() {
       {appointments.length > 0 && user ? (
         appointments.map((appointment) => {
           console.log(user);
+          const originalDate = new Date(appointment.dateAndTime);
+          // Extract year, month, and day components
+          const year = originalDate.getFullYear();
+          const month = (originalDate.getMonth() + 1)
+            .toString()
+            .padStart(2, "0");
+          const day = originalDate.getDate().toString().padStart(2, "0");
+          const formattedDateString = `${month}-${day}-${year}`;
           return (
             <Appointment
               doctorName={`${user.firstName + " " + user.lastName}`}
+              reason={appointment.reason}
+              date={formattedDateString}
               key={appointment.doctorID}
             />
           );
@@ -43,13 +54,12 @@ export default function Appointments() {
   );
 }
 
- function Appointment({ doctorName }) {
-
+function Appointment({ doctorName, reason, date }) {
   return (
     <Card className="mt-5 p-4 w-2/6 ml-3">
       <CardHeader>
         <CardTitle className="flex flex-row">
-          HIV Checkup
+          {reason}
           <Badge className="text-xs ml-auto ">Upcoming</Badge>
         </CardTitle>
       </CardHeader>
@@ -85,7 +95,9 @@ export default function Appointments() {
         <div className="flex items-center space-x-3">
           <CalendarIcon className="w-4 h-4" />
           <div className="space-y-1">
-            <h4 className="text-sm font-semibold">Date: 12th Dec 2023</h4>
+            <h4 className="text-sm font-semibold">{`Date: ${formatDate(
+              date
+            )}`}</h4>
           </div>
         </div>
       </CardContent>

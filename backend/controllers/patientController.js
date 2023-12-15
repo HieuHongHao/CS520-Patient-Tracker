@@ -28,7 +28,9 @@ export const bookAppointment = async (req, res) => {
   const { doctorId } = req.params;
   // PatientId should be get FROM THE TOKEN!!
   const { date, time, reason } = req.body;
-  const patientId = "6152f43d72d4cfe6fc37e675";
+  // const patientId = "6152f43d72d4cfe6fc37e675";
+  const patientId = req.userId;
+  
   const appointments = await checkAvailabilityHelper(date, time, doctorId);
 
   if (appointments.length > 0) {
