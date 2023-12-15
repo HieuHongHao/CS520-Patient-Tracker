@@ -13,6 +13,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import formatDate from "../../utils";
 
+
+// 
 export default function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const { user } = useAuth();

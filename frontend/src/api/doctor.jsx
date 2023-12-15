@@ -1,6 +1,6 @@
 import { api } from './util';
 
-const API_URL = `/api/doctor`; // Replace with your actual API URL
+const API_URL = `/api/doctor`;
 
 export const getDoctors = async () => {
   try {
