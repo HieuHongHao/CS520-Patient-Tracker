@@ -24,7 +24,7 @@ export default function PatientPage() {
   }
 
   useEffect(() => {
-    if (!patient || patient.role != 'Patient') {
+    if (!loading && (!patient || patient.role != 'Patient')) {
       message.error("Unauthorized.");
       navigate('/');
     }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { message } from 'antd';
 
 import { registerUser } from "../../api/user";
 import { useAuth } from "../../context/AuthContext";
@@ -22,7 +22,7 @@ export default function RegisterPage() {
       // Goes to landing page for further redirection.
       navigate('/');
 
-      message.success("Login success!");
+      message.success("Register success!");
     } catch (err) {
       message.error(err.data.message);
     }
