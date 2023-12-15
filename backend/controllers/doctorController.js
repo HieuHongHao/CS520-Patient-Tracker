@@ -5,8 +5,8 @@ import mongoose from 'mongoose';
 
 export const getAll = async (req, res) => {
   try {
-    const doctorsList = await Doctor.find({});
-    res.json(doctorsList.map(doctor => filterUserFields(doctor)));
+    const doctorsList = await Doctor.find({}).populate('userId');
+    res.json(doctorsList);
   } catch (err) {
     res.status(500).json({
       message: err.message,

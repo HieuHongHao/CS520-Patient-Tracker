@@ -15,11 +15,13 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "../../components/Diaglog";
-  import { useState } from "react";
+  import { useEffect, useState } from "react";
+  import { useParams, useNavigate } from "react-router-dom";
+  import { Button } from "../../components/button";
   
   
   import { DataTable } from "../../components/DataTable";
-  import { Button } from "../../components/button";
+import { getDoctor, getDoctors } from "../../api/doctor";
   
   const columns = [
     {
@@ -105,6 +107,35 @@ import {
   
   export function DoctorRecords() {
     const [currentRecordView, setCurrentRecordView] = useState({});
+    const [doctorList, setDoctorList] = useState([])
+    const navigate = useNavigate()
+
+    useEffect(() => {
+      getDoctors().then((res) => {
+        console.log(res)
+        setDoctorList(res)
+
+        // const processedHistories = res.data.map((history) => {
+        //   const originalDate = new Date(history.visitedDate);
+        //   // Extract year, month, and day components
+        //   const year = originalDate.getFullYear();
+        //   const month = (originalDate.getMonth() + 1).toString().padStart(2, "0");
+        //   const day = originalDate.getDate().toString().padStart(2, "0");
+  
+        //   // Create the formatted date string in "mm-dd-yyyy" format
+        //   const formattedDateString = `${month}-${day}-${year}`;
+        //   return {
+        //     name: history.patiendId.firstName + " " + history.patiendId.lastName,
+        //     description: history.description,
+        //     condition: history.condition,
+        //     visitedDate: formattedDateString,
+        //     patientId: history.patiendId._id,
+        //   };
+        // });
+        // setRecords(cloneDeep(processedHistories));
+      });
+    }, []);
+
     return (
       <div className="mt-5 mr-5">
         <div className="flex flex-row">
@@ -113,25 +144,30 @@ import {
           className="bg-white w-1/2 rounded-md h-8 placeholder-slate-500 px-3 mt-3 ml-1 mb-5 ring-1 ring-slate-700/20"
           placeholder="Search patient"
         />
-          <Dialog>
-            <DialogTrigger className="ml-5 mb-3">
-              <Button size={"sm"}>Book appointment</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Book appointment</DialogTitle>
-                <DialogDescription>
-                  <div className="flex flex-col">
-                    
-                  </div>
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
         </div>
         
-  
-        <DataTable columns={columns} data={patientsData} rowSelection={currentRecordView} setRowSelection={setCurrentRecordView}/>
+        <table>
+          <thead>
+            <tr>
+              <th className="pr-20">First Name</th>
+              <th className="pr-20">Last Name</th>
+              <th className="pr-20"> Email</th>
+              <th className="pr-20">Specialization</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {doctorList.map((doctor) => (
+              <tr>
+                <td className="pr-20">{doctor.userId.firstName}</td>
+                <td className="pr-20">{doctor.userId.lastName}</td>
+                <td className="pr-20">{doctor.userId.email}</td>
+                <td className="pr-20">{doctor.specialization}</td>
+                <Button onClick={() => navigate('/patient/book-appointment/' + doctor.userId._id)} variant={'link'}>Book appointment</Button>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
