@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import { DoctorRecords } from "./DoctorRecords";
 import { Button } from "../../components/button";
 import DoctorProfile from "../DoctorPage/DoctorProfile";
 import { useAuth } from '../../context/AuthContext'
+import { message } from "antd";
 
 export default function PatientPage() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,13 @@ export default function PatientPage() {
     // Moves to landing page.
     navigate('/');
   }
+
+  useEffect(() => {
+    if (!patient || patient.role != 'Patient') {
+      message.error("Unauthorized.");
+      navigate('/');
+    }
+  }, [loading]);
 
   return loading ? null : (
     <Tab.Group as={"div"} className="flex flex-row h-screen">

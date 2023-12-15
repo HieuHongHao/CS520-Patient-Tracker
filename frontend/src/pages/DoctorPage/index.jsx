@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HeartPulse, Calendar, User } from "lucide-react";
 import { Tab } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import DoctorProfile from "./DoctorProfile";
 import Appointment from "./Appointment";
 import { useAuth } from '../../context/AuthContext';
 import Appointments from "./Appointment";
+import { message } from "antd";
 
 
 export default function DoctorPage() {
@@ -23,6 +24,13 @@ export default function DoctorPage() {
     // Moves to landing page.
     navigate('/');
   }
+
+  useEffect(() => {
+    if (!doctor || doctor.role != 'Doctor') {
+      message.error("Unauthorized.");
+      navigate('/');
+    }
+  }, [loading]);
 
   // Postpone render until finish loading.
   return loading ? null : (
@@ -70,7 +78,7 @@ export default function DoctorPage() {
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
-          <Appointments/>
+          <Appointments />
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Profile</div>
