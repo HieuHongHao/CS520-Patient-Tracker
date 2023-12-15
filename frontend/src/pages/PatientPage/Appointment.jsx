@@ -42,8 +42,8 @@ export default function Appointments() {
           const formattedDateString = `${month}-${day}-${year}`;
           return (
             <Appointment
-              doctorName={`${user.firstName + " " + user.lastName}`}
-              patientName={`${appointment.patientId.firstName} ${appointment.patientId.lastName}`}
+              doctorName={`${appointment.doctorId.firstName} ${appointment.doctorId.lastName}`}
+              patientName={`${user.firstName + " " + user.lastName}`}
               reason={appointment.reason}
               date={formattedDateString}
               key={appointment.doctorID}
