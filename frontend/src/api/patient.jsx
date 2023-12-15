@@ -19,3 +19,13 @@ export const bookAppointment = async ({ date, time, reason, doctorId }) => {
     throw error.response;
   }
 };
+
+export const getPatientAppointments = async (patientId) => {
+  try {
+    const response = await api.get(`${API_URL}/${patientId}/appointments`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error.response;
+  }
+}

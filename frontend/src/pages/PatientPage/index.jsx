@@ -11,6 +11,7 @@ import { Button } from "../../components/button";
 import DoctorProfile from "../DoctorPage/DoctorProfile";
 import { useAuth } from '../../context/AuthContext'
 import { message } from "antd";
+import Appointments from "./Appointment";
 
 export default function PatientPage() {
   const [count, setCount] = useState(0);
@@ -80,6 +81,7 @@ export default function PatientPage() {
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Appointments</div>
+          <Appointments/>
         </Tab.Panel>
         <Tab.Panel as="div" className="min-h-full mt-5 ml-10">
           <div className="font-bold text-3xl tracking-tight">Profile</div>
