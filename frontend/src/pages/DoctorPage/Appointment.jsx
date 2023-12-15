@@ -56,7 +56,7 @@ export default function Appointments() {
 
 function Appointment({ doctorName, reason, date }) {
   return (
-    <Card className="mt-5 p-4 w-2/6 ml-3">
+    <Card className="mt-5 p-4 w-2/5 ml-auto mr-auto">
       <CardHeader>
         <CardTitle className="flex flex-row">
           {reason}
