@@ -9,6 +9,7 @@ The Patient Tracker System is a digital platform designed to revolutionize patie
 ## Technical Stack
 - **Frontend**: React
 - **Backend**: Node.js, Express
+- **Database**: MongoDB
 
 ## Installation
 
