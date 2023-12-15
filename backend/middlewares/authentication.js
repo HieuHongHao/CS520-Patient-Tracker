@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import { jwtSecret } from '../config.js';
 
-// use this middleware for API that requires user exists.
+// Middleware for authenticating requests requiring a user to exist.
 export const authenticate = (req, res, next) => {
   // Get the JWT from the request cookies
   const token = req.cookies.token;

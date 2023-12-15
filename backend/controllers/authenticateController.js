@@ -5,10 +5,12 @@ import mongoose from 'mongoose';
 import { User, Doctor, Patient, filterUserFields } from '../models/user.js';
 import { jwtSecret } from '../config.js';
 
+// Controller for user registration
 export const register = async (req, res) => {
   const { email, password, lastName, firstName,
     phone, role, dob, specialization } = req.body;
 
+  // Validation checks for required fields
   if (!email || !password) {
     return res.status(400).json({ errorL: 'Invalid email or password ' });
   }
@@ -16,6 +18,7 @@ export const register = async (req, res) => {
     return res.status(400).json({ errorL: 'Invalid role' });
   }
 
+  // Start a database transaction
   const session = await mongoose.startSession();
   session.startTransaction();
 
@@ -27,7 +30,6 @@ export const register = async (req, res) => {
     }
 
     // Hash the password
-    // Salt used in hashing. Unlikely used elsewhere, so define it here.
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
@@ -41,8 +43,7 @@ export const register = async (req, res) => {
       role
     });
 
-    // TODO: register flow for Doctor/Patient requires respective fields. Mark fields
-    // non-required for now.
+    // Register additional fields based on the user's role
     if (role === 'Doctor') {
       await Doctor.create({ userId: newUser._id, specialization });
     } else {
@@ -52,14 +53,22 @@ export const register = async (req, res) => {
     // Create and send JWT token
     const token = jwt.sign({ id: newUser._id }, jwtSecret, { expiresIn: '1d' });
 
+    // Set the JWT token in an HttpOnly cookie
     res.cookie('token', token, { httpOnly: true });
+
+    // Send the filtered user details in the response
     res.status(200).json(filterUserFields(newUser));
   } catch (error) {
     console.error(error);
+    // Handle registration error
     res.status(500).json({ message: "Invalid email or password" });
+  } finally {
+    // End the database transaction
+    session.endSession();
   }
 };
 
+// Controller for user login
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -79,17 +88,23 @@ export const login = async (req, res) => {
     // Create and send JWT token
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1d' });
 
+    // Set the JWT token in an HttpOnly cookie
     res.cookie('token', token, { httpOnly: true });
+
+    // Send the filtered user details in the response
     res.status(200).json(filterUserFields(user));
   } catch (error) {
     console.error(error);
+    // Handle login error
     res.status(500).json({ message: "Invalid email or password" });
   }
 };
 
-// We set token in HttpOnly cookie, only backend can delete, 
-// through this controller.
+// Controller for user logout
 export const logout = async (req, res) => {
+  // Clear the JWT token in the cookie
   res.cookie('token', '', { expires: new Date(0), httpOnly: true });
+
+  // Send a successful logout message in the response
   res.status(200).json({ message: "Logout success!" });
 };
