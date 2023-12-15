@@ -12,8 +12,15 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load user data from localStorage on website startup
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    let storedUser = undefined;
+    try {
+      // Load user data from localStorage on website startup.
+      storedUser = JSON.parse(localStorage.getItem('user'));
+    } catch (err) {
+      // Malformed data in local storage.
+      localStorage.removeItem('user');
+    }
+
     if (storedUser) {
       setUser(storedUser);
     }
