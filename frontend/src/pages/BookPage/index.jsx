@@ -34,6 +34,7 @@ export default function BookPage() {
       const data = await bookAppointment({ date, time, reason, doctorId: params.doctorId })
       setIsAvailable(false);
       message.success(data.message);
+      navigate('/patient');
     } catch (err) {
       console.log(err);
       const data = err.data;

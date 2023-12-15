@@ -29,7 +29,8 @@ export default function Appointments() {
     <div className="flex flex-row flex-wrap ">
       {appointments.length > 0 && user ? (
         appointments.map((appointment) => {
-          console.log(user);
+          // console.log(user);
+          // console.log("appointment", appointment);
           const originalDate = new Date(appointment.dateAndTime);
           // Extract year, month, and day components
           const year = originalDate.getFullYear();
@@ -41,6 +42,7 @@ export default function Appointments() {
           return (
             <Appointment
               doctorName={`${user.firstName + " " + user.lastName}`}
+              patientName={`${appointment.patientId.firstName} ${appointment.patientId.lastName}`}
               reason={appointment.reason}
               date={formattedDateString}
               key={appointment.doctorID}
@@ -54,7 +56,7 @@ export default function Appointments() {
   );
 }
 
-function Appointment({ doctorName, reason, date }) {
+function Appointment({ doctorName, patientName, reason, date }) {
   return (
     <Card className="mt-5 p-4 w-2/6 ml-3">
       <CardHeader>
@@ -89,7 +91,7 @@ function Appointment({ doctorName, reason, date }) {
             <AvatarFallback>Pt</AvatarFallback>
           </Avatar>
           <div className="space-y-1">
-            <h4 className="text-sm font-semibold">Jane Doe</h4>
+            <h4 className="text-sm font-semibold">{patientName}</h4>
           </div>
         </div>
         <div className="flex items-center space-x-3">

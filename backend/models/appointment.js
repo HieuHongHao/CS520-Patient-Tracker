@@ -6,12 +6,12 @@ const appointmentSchema = new Schema({
   patientId: { 
     type: Schema.Types.ObjectId, 
     required: true, 
-    ref: 'Patient' 
+    ref: 'User' 
   },
   doctorId: { 
     type: Schema.Types.ObjectId, 
     required: true, 
-    ref: 'Doctor' 
+    ref: 'User' 
   },
   dateAndTime: {
     type: Date,
